@@ -1,0 +1,44 @@
+{
+  "title": "Work Featured",
+  "type": "object",
+  "description": "It describes the activities (workshops - conferences ...) featured by the event",
+  "x-examples": {
+    "example-1": {
+      "category": "conference",
+      "activity": [
+        {
+          "name": "Digital Well Being",
+          "time": "12:15"
+        }
+      ]
+    }
+  },
+  "properties": {
+    "category": {
+      "type": "string",
+      "enum": [
+        "welcoming",
+        "conferences",
+        "workshops",
+        "closure"
+      ],
+      "example": "conferences"
+    },
+    "activity": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Digital Well Being"
+          },
+          "time": {
+            "type": "string",
+            "example": "12:15"
+          }
+        }
+      }
+    }
+  }
+}

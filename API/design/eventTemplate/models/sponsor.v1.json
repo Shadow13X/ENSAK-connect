@@ -1,0 +1,24 @@
+{
+  "title": "sponsor",
+  "type": "object",
+  "description": "",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "sponsor's name -> Ambassador enterprise",
+      "example": "ONCF"
+    },
+    "sponsorType": {
+      "type": "string",
+      "enum": [
+        "gold",
+        "silver",
+        "platinium"
+      ]
+    },
+    "image": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}
