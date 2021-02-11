@@ -1,7 +1,15 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld :response="resp"/>
+    <div>
+      <p>
+        If Ant-Design-Vue is successfully added to this project, you'll see an
+        <code v-text="'<a-button>'"></code>
+        below
+      </p>
+      <a-button type="primary">{{ resp }}</a-button>
+    </div>
+    <HelloWorld response="resp"/>
 
   </div>
 </template>
@@ -15,21 +23,25 @@ export default {
   components: {
     HelloWorld
   },
-  data(){
+  data()
+  {
     return {
       resp: '',
       errors: []
     }
   },
   //Populate the data after the component creation
-  created() {
+  created()
+  {
     this.axios.get('/students')
-        .then(response => {
-           this.resp = response;
-        })
-        .catch(e => {
-          this.errors.push(e)
-        })
+        .then(response =>
+              {
+                this.resp = response.data.content.data[0].id;
+              })
+        .catch(e =>
+               {
+                 this.errors.push(e)
+               })
   }
 }
 </script>
