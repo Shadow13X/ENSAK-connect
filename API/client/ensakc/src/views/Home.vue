@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorld :response="resp"/>
   </div>
 </template>
 
@@ -13,6 +13,22 @@ export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  data(){
+    return {
+      resp: '',
+      errors: []
+    }
+  },
+  //Populate the data after the component creation
+  created() {
+    this.axios.get('/students')
+        .then(response => {
+           this.resp = response;
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
   }
 }
 </script>
