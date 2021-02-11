@@ -34,14 +34,13 @@ export default {
   created()
   {
     this.axios.get('/students')
-        .then(response =>
-              {
-                this.resp = response.data.content.data[0].id;
-              })
-        .catch(e =>
-               {
-                 this.errors.push(e)
-               })
+        .then(response => {
+          this.resp = response.data.content.data[0].id;
+          console.log(response.data);
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
   }
 }
 </script>

@@ -1,4 +1,4 @@
-# ensakc
+# Ensak Connect
 
 ## Project setup
 ```
@@ -9,15 +9,19 @@ yarn install
 ```
 yarn serve
 ```
-
-### Compiles and minifies for production
+### Run Components in Storybook
 ```
-yarn build
+yarn storybook
 ```
 
 ### Run your unit tests
 ```
 yarn test:unit
+```
+
+### Compiles and minifies for production
+```
+yarn build
 ```
 
 ### Lints and fixes files
