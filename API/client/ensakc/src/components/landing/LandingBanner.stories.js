@@ -11,9 +11,10 @@ export default {
 // Named Exports are for individual components
 export const myLandingBanner = () => ({
     components: { MyLandingBanner },
-    template:
-        '<MyLandingBanner/>',
+    template: '<MyLandingBanner/>',
 });
+
+myLandingBanner.storyName = 'Default'
 
 myLandingBanner.parameters = {
     design: {

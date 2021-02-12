@@ -20,6 +20,7 @@ const routes = [
   }
 ]
 
+// Needs Server Config in production
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
