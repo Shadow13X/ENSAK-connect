@@ -7,6 +7,8 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+// By injecting router & store in the Vue instance
+// it becomes aware of those instances
 new Vue({
   router,
   store,
