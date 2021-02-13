@@ -1,18 +1,19 @@
 <template>
   <div class="ensak-landing-banner-container">
    <LandingNav/>
-    <h1 class="ensak-landing-banner-container-theme">AR/VR Evolution</h1>
-
+   <LandingCallForAction/>
   </div>
 </template>
 
 <script>
 import LandingNav from "./LandingNav.vue";
+import LandingCallForAction from "./LandingCallForAction.vue";
 
 export default {
   name: "LandingBanner",
   components: {
-    LandingNav
+    LandingNav,
+    LandingCallForAction
   },
   props: {
     templateData: {
@@ -24,18 +25,13 @@ export default {
 </script>
 
 <style lang="scss">
-
-  $whitespace-fix: -10px;
-
-
   .ensak-landing-banner-container {
-
-    margin-top: $whitespace-fix;
-    width: 100%;
     height: 100vh;
     background-repeat: no-repeat;
-    background-size: contain;
-
+    background-size: cover;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
     //border: 2px red dotted;
   }
 
