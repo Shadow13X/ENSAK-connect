@@ -2,34 +2,49 @@
   <div class="ensak-landing-page-container">
     <!-- Style Object Binding    -->
     <LandingBanner :template-data="event" :style="{ backgroundImage: bannerUrl }"/>
+    <LandingBannerTimer :target-date="targetDate"/>
   </div>
 </template>
 
 <script>
-import LandingBanner from "@/components/landing/LandingBanner";
+import { parseDate }      from "@/utils/utils";
+import LandingBanner      from "@/components/landing/LandingBanner";
+import LandingBannerTimer from "@/components/landing/LandingBannerTimer";
+
+
 export default {
   name: "LandingPage",
   components: {
-    LandingBanner
+    LandingBanner,
+    LandingBannerTimer
   },
-  data(){
+  data()
+  {
     return {
       event: {},
       bannerUrl: ''
     }
   },
   //Todo: Create an EndPoint that returns the current event
-  created() {
+  created()
+  {
     this.axios.get('/events/497f6eca-6276-4993-bfeb-53cbbbba6f08/template')
         .then(response => {
           this.event = response.data.content.data;
           this.bannerUrl = "url('" + this.event.banner + "')";
           console.log(response.data);
+          console.log(parseDate(this.event.startDate));
         })
         .catch(e => {
           // this.errors.push(e)
           console.log(e);
         })
+  },
+  computed:
+  {
+    targetDate(){
+      return parseDate(this.event.startDate);
+    }
   }
 }
 </script>
