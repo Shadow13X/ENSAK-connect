@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home        from '../views/Home.vue'
+import LandingPage from "@/views/LandingPage";
 
 Vue.use(VueRouter)
 
@@ -8,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'ladingPage',
-    component: Home
+    component: LandingPage
   },
   {
     path: '/about',
