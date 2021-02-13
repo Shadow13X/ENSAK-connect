@@ -1257,7 +1257,19 @@ paths:
                         performers:
                           - name: Ahmad Reda Chami
                             about: CEO of Economical Consultance
-                            image: 'http://example.com'
+                            image: 'https://api.hello-avatar.com/adorables/150/ziko@adorable.png'
+                          - name: Ahmad Reda Chami
+                            about: CEO of Economical Consultance
+                            image: 'https://api.hello-avatar.com/adorables/150/ali@adorable.png'
+                          - name: Ahmad Reda Chami
+                            about: CEO of Economical Consultance
+                            image: 'https://api.hello-avatar.com/adorables/150/sadiq@adorable.png'
+                          - name: Ahmad Reda Chami
+                            about: CEO of Economical Consultance
+                            image: 'https://api.hello-avatar.com/adorables/150/hamousa@adorable.png'
+                          - name: Ahmad Reda Chami
+                            about: CEO of Economical Consultance
+                            image: 'https://api.hello-avatar.com/adorables/150/ilyas@adorable.png'
                         theme: AR/VR A New Tech Revolution
                         gallery:
                           - 'http://example.com'
