@@ -1231,8 +1231,8 @@ paths:
                       data:
                         id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
                         name: ENSAK Enterprise Forum (7th Edition)
-                        startDate: '2019-08-24T14:15:22Z'
-                        endDate: '2019-08-24T14:15:22Z'
+                        startDate: '2021-04-09T18:00:00Z'
+                        endDate: '2021-04-08T08:00:00Z'
                         location:
                           id: 105
                           latitude: 33.541287
