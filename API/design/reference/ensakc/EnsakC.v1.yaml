@@ -1261,7 +1261,7 @@ paths:
                         theme: AR/VR A New Tech Revolution
                         gallery:
                           - 'http://example.com'
-                        banner: 'https://i.imgur.com/OJYWTS6.png'
+                        banner: 'https://i.imgur.com/vZF3qUW.jpg'
                         eventType: Online
         '404':
           description: Not Found
