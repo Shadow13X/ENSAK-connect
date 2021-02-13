@@ -15,6 +15,7 @@ export default {
 <style lang="scss">
 
 $side-margins: 50px;
+$curve-radius: 50px;
 
 .ensak-landing-nav-container {
   display: flex;
@@ -39,7 +40,7 @@ $side-margins: 50px;
   padding: 10px;
   margin-right: $side-margins;
 
-  border-radius: 15px;
+  border-radius: $curve-radius 0 $curve-radius 0;
   background-color: transparent;
   color: white;
   font-weight: bold;
