@@ -1,21 +1,47 @@
 <template>
-  <div class="landing-banner-container">
-    <p>Hello world</p>
+  <div class="ensak-landing-banner-container">
+   <LandingNav/>
+    <h1 class="ensak-landing-banner-container-theme">AR/VR Evolution</h1>
+
   </div>
 </template>
 
 <script>
+import LandingNav from "./LandingNav.vue";
+
 export default {
-  name: "LandingBanner"
+  name: "LandingBanner",
+  components: {
+    LandingNav
+  },
+  props: {
+    templateData: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 
-<style>
-  .landing-banner-container {
+<style lang="scss">
+
+  $whitespace-fix: -10px;
+
+
+  .ensak-landing-banner-container {
+
+    margin-top: $whitespace-fix;
     width: 100%;
     height: 100vh;
-    background-image: url(https://i.imgur.com/OJYWTS6.png) ;
     background-repeat: no-repeat;
     background-size: contain;
+
+    //border: 2px red dotted;
+  }
+
+  .ensak-landing-banner-container-theme {
+    font-family: sans-serif ;
+    color: white;
+    font-size: 30px;
   }
 </style>
