@@ -1,0 +1,1866 @@
+openapi: 3.0.0
+info:
+  title: EnsakC
+  version: '1.0'
+  description: 'Simple and comprehensive API powering the ENSAKConnect platform '
+  contact:
+    name: Codeautocracy
+    email: codeautocracy@gmail.com
+servers:
+  - url: 'http://localhost:3000/api/v1'
+paths:
+  '/user-profile/{userId}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: userId
+        in: path
+        description: Id of an existing user.
+        required: true
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  httpStatusCode:
+                    type: number
+                    example: 200
+                    description: It's easier to manipulate status code via the object
+                  content:
+                    type: object
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Public-User'
+              examples:
+                Get Zakaria Idrissi:
+                  value:
+                    httpStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        firstName: Zakaria
+                        lastName: Idrissi
+                        email: codeautocracy@gmail.com
+                        createDate: '2019-08-24T14:15:22Z'
+                        updateDate: '2019-08-24T14:15:22Z'
+                        image: 'http://example.com'
+          headers: {}
+        '404':
+          description: User Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                example-1:
+                  value:
+                    httpStatusCode: 404
+                    content: null
+                    error:
+                      message: Resource not Found
+                      exceptionMessage: 'null'
+                      stackTrace: 'null'
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+      parameters: []
+  '/events/{eventId}/participants':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: eventId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  httpStatusCode:
+                    type: number
+                    example: 200
+                    enum:
+                      - 200
+                      - 404
+                      - 403
+                  content:
+                    type: object
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        type: object
+                        properties:
+                          totalCount:
+                            type: number
+                            minimum: 1
+                            exclusiveMinimum: false
+                            example: 26
+                          data:
+                            type: object
+                            properties:
+                              image:
+                                type: array
+                                items:
+                                  type: string
+                                  format: uri
+              examples:
+                OK:
+                  value:
+                    httpStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        totalCount: 26
+                        data:
+                          image:
+                            - 'http://example.com'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value: {}
+        '404':
+          description: Not Found
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                Not found:
+                  value:
+                    httpStatusCode: 404
+                    content: null
+                    error:
+                      message: Resource not Found
+                      exceptionMessage: 'null'
+                      stackTrace: 'null'
+      operationId: get-events-eventId-participants
+      description: |-
+        Note: 
+        I need to think about whether or not this needs to be separate endpoint
+  /students:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: integer
+                    example: 200
+                  content:
+                    type: object
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Student'
+              examples:
+                Get Students:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                          firstName: Zakaria
+                          lastName: Idrissi
+                          dateOfBirth: '2019-08-24'
+                          email: user@example.com
+                          createDate: '2019-08-24T14:15:22Z'
+                          updateDate: '2019-08-24T14:15:22Z'
+                          image: 'http://example.com'
+                          yearOfStudy: 4th Year (Engineering Cycle)
+                          studentID: '17005242'
+                          fieldOfStudy: Computer Engineering
+                          club: EIC (ENSAK Informatics Club)
+                          phone: '+212639159203'
+                          city: Kenitra
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                '404':
+                  value:
+                    httpStatusCode: 404
+                    content: null
+                    error:
+                      message: Resource not Found
+                      exceptionMessage: 'null'
+                      stackTrace: 'null'
+      operationId: get-students
+      description: Admin endpoint for retrieving students
+    post:
+      summary: ''
+      operationId: post-students
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  httpStatusCode:
+                    type: integer
+                    example: 200
+                  content:
+                    type: object
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Student'
+              examples:
+                Created:
+                  value:
+                    httpStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        firstName: Zakaria
+                        lastName: Idrissi
+                        dateOfBirth: '2019-08-24'
+                        email: user@example.com
+                        createDate: '2019-08-24T14:15:22Z'
+                        updateDate: '2019-08-24T14:15:22Z'
+                        image: 'http://example.com'
+                        yearOfStudy: 4th Year (Engineering Cycle)
+                        studentID: '17005242'
+                        fieldOfStudy: Computer Engineering
+                        club: EIC (ENSAK Informatics Club)
+                        phone: '+212639159203'
+                        city: Kenitra
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                Bad request:
+                  value:
+                    httpStatusCode: 400
+                    content: null
+                    error:
+                      message: Bad Request
+                      exceptionMessage: 'null'
+                      stackTrace: 'null'
+      description: |
+        Admin endpoint for creating new students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  minLength: 1
+                lastName:
+                  type: string
+                  minLength: 1
+                dateOfBirth:
+                  type: string
+                  minLength: 1
+                email:
+                  type: string
+                  minLength: 1
+                createDate:
+                  type: string
+                  minLength: 1
+                updateDate:
+                  type: string
+                  minLength: 1
+                image:
+                  type: string
+                  minLength: 1
+                yearOfStudy:
+                  type: string
+                  minLength: 1
+                studentID:
+                  type: string
+                  minLength: 1
+                fieldOfStudy:
+                  type: string
+                  minLength: 1
+                club:
+                  type: string
+                  minLength: 1
+                phone:
+                  type: string
+                  minLength: 1
+                city:
+                  type: string
+                  minLength: 1
+              required:
+                - firstName
+                - lastName
+                - dateOfBirth
+                - email
+                - createDate
+                - updateDate
+                - image
+                - yearOfStudy
+                - studentID
+                - fieldOfStudy
+                - club
+                - phone
+                - city
+            examples:
+              POST Zakaria Idrissi:
+                value:
+                  firstName: Zakaria
+                  lastName: Idrissi
+                  dateOfBirth: '2019-08-24'
+                  email: user@example.com
+                  createDate: '2019-08-24T14:15:22Z'
+                  updateDate: '2019-08-24T14:15:22Z'
+                  image: 'http://example.com'
+                  yearOfStudy: 4th Year (Engineering Cycle)
+                  studentID: '17005242'
+                  fieldOfStudy: Computer Engineering
+                  club: EIC (ENSAK Informatics Club)
+                  phone: '+212639159203'
+                  city: Kenitra
+        description: ''
+  '/students/{studentId}':
+    parameters:
+      - schema:
+          type: string
+        name: studentId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                    example: 200
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Student'
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                Get Full Zakaria Idrissi:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        firstName: Zakaria
+                        lastName: Idrissi
+                        dateOfBirth: '2019-08-24'
+                        email: user@example.com
+                        createDate: '2019-08-24T14:15:22Z'
+                        updateDate: '2019-08-24T14:15:22Z'
+                        image: 'http://example.com'
+                        yearOfStudy: 4th Year (Engineering Cycle)
+                        studentID: '17005242'
+                        fieldOfStudy: Computer Engineering
+                        club: EIC (ENSAK Informatics Club)
+                        phone: '+212639159203'
+                        city: Kenitra
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpStatusCode:
+                    type: number
+                  content: {}
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        minLength: 1
+                      exceptionMessage:
+                        type: string
+                        minLength: 1
+                      stackTrace:
+                        type: string
+                        minLength: 1
+                    required:
+                      - message
+                      - exceptionMessage
+                      - stackTrace
+                required:
+                  - httpStatusCode
+                  - error
+      operationId: get-students-studentId
+      description: Student Endpoint => Retrieve student info
+    post:
+      summary: ''
+      operationId: post-students-studentId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                      - data
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Student'
+                      message:
+                        type: string
+                        example: Profile Updated successfully
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                Update Zakaria Idrissi Res:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        firstName: Zakaria
+                        lastName: Azzouzi
+                        dateOfBirth: '2019-08-24'
+                        email: user@example.com
+                        createDate: '2019-08-24T14:15:22Z'
+                        updateDate: '2019-08-24T14:15:22Z'
+                        image: 'http://example.com'
+                        yearOfStudy: 4th Year (Engineering Cycle)
+                        studentID: '17005242'
+                        fieldOfStudy: Computer Engineering
+                        club: EIC (ENSAK Informatics Club)
+                        phone: '+212639159203'
+                        city: Kenitra
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                '400':
+                  value:
+                    httpStatusCode: 400
+                    content: null
+                    error:
+                      message: Bad request
+                      exceptionMessage: 'null'
+                      stackTrace: 'null'
+      description: |
+        Student Endpoint => Update Student Details
+
+        Note:
+        Pay heed to the email since it's not meant to be changed by students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                lastName:
+                  type: string
+                  minLength: 1
+            examples:
+              Update Zakaria Idrissi:
+                value:
+                  lastName: Azzouzi
+        description: ''
+    delete:
+      summary: ''
+      operationId: delete-students-studentId
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                    example: 204
+                  content:
+                    type: 'null'
+                required:
+                  - httpsStatusCode
+          headers:
+            'Location: https://landingpage':
+              schema:
+                type: string
+              description: Redirect to landing page
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                '404':
+                  value:
+                    httpStatusCode: 404
+                    content: null
+                    error:
+                      message: Resource not Found
+                      exceptionMessage: 'null'
+                      stackTrace: 'null'
+      description: Student Endpoint => Delete Request
+  /projects:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: |-
+            OK 
+            - Condense the response by providing a url for projects details
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                    example: 200
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Project'
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                Get Projects:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                          name: Artificial Obsidian
+                          submissionDate: '2019-08-24'
+                          creationDate: '2019-08-24'
+                          club: EIC
+                          industry: Artificial Intelligence
+                          about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+                          media:
+                            gallery:
+                              - 'http://example.com'
+                            videos:
+                              - 'http://example.com'
+                            innovators:
+                              - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                                firstName: Zakaria
+                                lastName: Idrissi
+                                email: codeautocracy@gmail.com
+                                image: 'http://example.com'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpStatusCode:
+                    type: number
+                  content: {}
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        minLength: 1
+                      exceptionMessage:
+                        type: string
+                        minLength: 1
+                      stackTrace:
+                        type: string
+                        minLength: 1
+                    required:
+                      - message
+                      - exceptionMessage
+                      - stackTrace
+                required:
+                  - httpStatusCode
+                  - error
+      operationId: get-projects
+      description: User Endpoint => Retrieve projects list
+    post:
+      summary: ''
+      operationId: post-projects
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  name:
+                    type: string
+                    minLength: 1
+                  club:
+                    type: string
+                    minLength: 1
+                  industry:
+                    type: string
+                    minLength: 1
+                  about:
+                    type: string
+                    minLength: 1
+                required:
+                  - name
+                  - club
+                  - industry
+                  - about
+              examples:
+                Post Project:
+                  value:
+                    name: Artificial Self
+                    club: EIC
+                    industry: Artificial Intelligence
+                    about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+      description: Admin Endpoint => Create / Update projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                club:
+                  type: string
+                  minLength: 1
+                industry:
+                  type: string
+                  minLength: 1
+                about:
+                  type: string
+                  minLength: 1
+              required:
+                - name
+                - club
+                - industry
+                - about
+            examples:
+              Create Project:
+                value:
+                  name: Artificial Self
+                  club: EIC
+                  industry: Artificial Intelligence
+                  about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+        description: |
+          Create a new Project
+  '/enterprises/{enterpriseName}':
+    parameters:
+      - schema:
+          type: string
+        name: enterpriseName
+        in: path
+        required: true
+        description: Slug with the company name
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                    example: 200
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                      - data
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Enterprise'
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                Get ONCF:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: oncf-maroc
+                        name: ONCF Transportations
+                        location:
+                          id: 105
+                          latitude: 33.541287
+                          longitude: -7.5485412
+                          city: Rabat
+                          country: Morocco
+                          state: Casablanca-Settat
+                          street: Av Mohammed VI
+                          streetNumber: 15
+                          zipCode: '12000'
+                          formattedLocation: 'Kenitra , Morocco'
+                        websiteUrl: 'http://example.com'
+                        image: 'http://example.com'
+                        about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+                        industry: Logistics & Transportation
+      operationId: get-enterprises-enterpriseName
+      description: 'User Endpoint => Retrieve Individual Enterprise     '
+  '/projects/{projectId}':
+    parameters:
+      - schema:
+          type: string
+        name: projectId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Project'
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                Get one project:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        name: Artificial Obsidian
+                        submissionDate: '2019-08-24'
+                        creationDate: '2019-08-24'
+                        club: EIC
+                        industry: Artificial Intelligence
+                        about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+                        media:
+                          gallery:
+                            - 'http://example.com'
+                          videos:
+                            - 'http://example.com'
+                          innovators:
+                            - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                              firstName: Zakaria
+                              lastName: Idrissi
+                              email: codeautocracy@gmail.com
+                              image: 'http://example.com'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpStatusCode:
+                    type: number
+                  content: {}
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        minLength: 1
+                      exceptionMessage:
+                        type: string
+                        minLength: 1
+                      stackTrace:
+                        type: string
+                        minLength: 1
+                    required:
+                      - message
+                      - exceptionMessage
+                      - stackTrace
+                required:
+                  - httpStatusCode
+                  - error
+              examples:
+                '404':
+                  value:
+                    httpStatusCode: 404
+                    content: null
+                    error:
+                      message: Resource not Found
+                      exceptionMessage: string
+                      stackTrace: string
+      operationId: get-projects-projectId
+      description: User Endpoint => Retrieve individual project
+    post:
+      summary: ''
+      operationId: post-projects-projectId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                      - data
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Project'
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                Update Project Res:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        name: Artificial Obsidian
+                        submissionDate: '2019-08-24'
+                        creationDate: '2019-08-24'
+                        club: EIC
+                        industry: Artificial Self
+                        about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+                        media:
+                          gallery:
+                            - 'http://example.com'
+                          videos:
+                            - 'http://example.com'
+                          innovators:
+                            - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                              firstName: Zakaria
+                              lastName: Idrissi
+                              email: codeautocracy@gmail.com
+                              image: 'http://example.com'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                Bad Request:
+                  value:
+                    httpStatusCode: 400
+                    content: null
+                    error:
+                      message: Bad request
+                      exceptionMessage: string
+                      stackTrace: string
+      description: Admin Endpoint => Create / Update projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+            examples:
+              Update Project:
+                value:
+                  name: Artificial Self
+        description: Update Project
+    delete:
+      summary: ''
+      operationId: delete-projects-projectId
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  httpStatusCode:
+                    type: number
+                    example: 204
+                  content:
+                    type: 'null'
+              examples:
+                '204':
+                  value:
+                    httpStatusCode: 204
+                    content: null
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                '404':
+                  value:
+                    httpStatusCode: 404
+                    content: null
+                    error:
+                      message: Resource not Found
+                      exceptionMessage: 'null'
+                      stackTrace: 'null'
+      description: |
+        Admin Endpoint => Delete project
+  /enterprises:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                    example: 200
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Enterprise'
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                Get Enterprises:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        - id: oncf-maroc
+                          name: ONCF Transportations
+                          location:
+                            id: 105
+                            latitude: 33.541287
+                            longitude: -7.5485412
+                            city: Rabat
+                            country: Morocco
+                            state: Casablanca-Settat
+                            street: Av Mohammed VI
+                            streetNumber: 15
+                            zipCode: '12000'
+                            formattedLocation: 'Kenitra , Morocco'
+                          websiteUrl: 'http://example.com'
+                          image: 'http://example.com'
+                          about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+                          industry: Logistics & Transportation
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+              examples:
+                '404':
+                  value:
+                    httpStatusCode: 404
+                    content: null
+                    error:
+                      message: Resource not Found
+                      exceptionMessage: 'null'
+                      stackTrace: 'null'
+      operationId: get-enterprises
+      description: User Endpoint => Retrieve Enterprises
+  '/user-settings/{userId}':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-user-settings-userId
+      description: ''
+  '/resume/{resumeId}':
+    parameters:
+      - schema:
+          type: string
+        name: resumeId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                    example: 200
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                      - data
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Resume'
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                Get Zakaria Resume:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        resumeAvatar: 'http://example.com'
+                        info:
+                          firstName: Ouadrhiri Idrissi Azzouzi
+                          lastName: Zakaria
+                          email: user@example.com
+                          phone: '+212639159203'
+                          age: 21
+                          city: Kenitra
+                        experience:
+                          - title: Mobile Developer
+                            startDate: '2019-08-24'
+                            endDate: null
+                            about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+                        education:
+                          - title: Industrial Engineering
+                            startDate: '2019-08-24'
+                            endDate: '2019-08-24'
+                            about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+                        skills:
+                          - title: Programming
+                            about: 'Java , C , C++, Haskell , Elixir'
+                        misc:
+                          - title: Sport
+                            about: Swimming & Calisthenics
+                        createDate: '2019-08-24T14:15:22Z'
+                        updateDate: '2019-08-24T14:15:22Z'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+      operationId: get-resume-resumeId
+      description: Student Endpoint => Retrieve Resume Details
+    post:
+      summary: ''
+      operationId: post-resume-resumeId
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      operationId: delete-resume-resumeId
+      responses:
+        '200':
+          description: OK
+      description: Student Endpoint => Delete Resume
+  '/events/{eventId}/template':
+    parameters:
+      - schema:
+          type: string
+        name: eventId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                    example: 200
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Event-Template'
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                'Get Event Template ':
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        name: ENSAK Enterprise Forum (7th Edition)
+                        startDate: '2021-04-09T18:00:00Z'
+                        endDate: '2021-04-08T08:00:00Z'
+                        location:
+                          id: 105
+                          latitude: 33.541287
+                          longitude: -7.5485412
+                          city: Rabat
+                          country: Morocco
+                          state: Casablanca-Settat
+                          street: Av Mohammed VI
+                          streetNumber: 15
+                          zipCode: '12000'
+                          formattedLocation: 'Kenitra , Morocco'
+                        eventStatus: eventScheduled
+                        sponsors:
+                          - name: ONCF
+                            sponsorType: gold
+                            image: 'http://example.com'
+                        workFeatured:
+                          - category: conferences
+                            activity:
+                              - name: Digital Well Being
+                                time: '08:15'
+                        performers:
+                          - name: Ahmad Reda Chami
+                            about: CEO of Economical Consultance
+                            image: 'https://api.hello-avatar.com/adorables/150/ziko@adorable.png'
+                          - name: Ahmad Reda Chami
+                            about: CEO of Economical Consultance
+                            image: 'https://api.hello-avatar.com/adorables/150/ali@adorable.png'
+                          - name: Ahmad Reda Chami
+                            about: CEO of Economical Consultance
+                            image: 'https://api.hello-avatar.com/adorables/150/sadiq@adorable.png'
+                          - name: Ahmad Reda Chami
+                            about: CEO of Economical Consultance
+                            image: 'https://api.hello-avatar.com/adorables/150/hamousa@adorable.png'
+                          - name: Ahmad Reda Chami
+                            about: CEO of Economical Consultance
+                            image: 'https://api.hello-avatar.com/adorables/150/ilyas@adorable.png'
+                        theme: AR/VR A New Tech Revolution
+                        gallery:
+                          - 'http://example.com'
+                        banner: 'https://i.imgur.com/vZF3qUW.jpg'
+                        eventType: Online
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+      operationId: get-events-eventId-template
+      description: Public Endpoint => Retrieve the landing page
+  '/events/{eventId}/preview':
+    parameters:
+      - schema:
+          type: string
+        name: eventId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  httpsStatusCode:
+                    type: number
+                    example: 200
+                  content:
+                    type: object
+                    required:
+                      - isSuccess
+                    properties:
+                      isSuccess:
+                        type: boolean
+                      data:
+                        $ref: '#/components/schemas/Event-Preview'
+                required:
+                  - httpsStatusCode
+                  - content
+              examples:
+                Get Event Preview:
+                  value:
+                    httpsStatusCode: 200
+                    content:
+                      isSuccess: true
+                      data:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        name: string
+                        startDate: '2019-08-24T14:15:22Z'
+                        endDate: '2019-08-24T14:15:22Z'
+                        about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+                        banner: 'http://example.com'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+      operationId: get-events-eventId-preview
+  '/user-settings/{userId}/change-password':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-user-settings-userId-change-password
+      description: Student Operation
+components:
+  schemas:
+    Public-User:
+      title: Public User
+      type: object
+      description: The user model will represent both students and Enterprises
+      x-examples:
+        Alice Smith:
+          id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+        Zakaria Idrissi:
+          id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+          firstName: Zakaria
+          lastName: Idrissi
+          email: codeautocracy@gmail.com
+          dateOfBirth: '1997-10-31'
+          createDate: '2019-08-24T14:15:22Z'
+          updateDate: '2019-08-24T14:15:22Z'
+          image: 'http://example.com'
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the given user.
+          format: uuid
+        firstName:
+          type: string
+          example: Zakaria
+        lastName:
+          type: string
+          example: Idrissi
+        email:
+          type: string
+          format: email
+          example: codeautocracy@gmail.com
+        image:
+          type: string
+          format: uri
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+    Event-Template:
+      title: Event-Template
+      type: object
+      x-examples:
+        Example 1:
+          id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+          name: AR / VR A new Tech Revolution
+          startDate: '2019-08-24T14:15:22Z'
+          endDate: '2019-08-24T14:15:22Z'
+          location: Ensa Kenitra
+          eventStatus: eventScheduled
+          sponsors:
+            - name: ONCF
+              sponsorType: gold
+              image: 'http://example.com'
+          workFeatured:
+            - category: conference
+              activity:
+                - name: Digital Well Being
+                  time: '08:15'
+          performers:
+            - name: Ahmad Reda Chami
+              about: CEO of Economical Consultance
+              image: 'http://example.com'
+        Example 2:
+          id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+          name: ENSAK Enterprise Forum (7th Edition)
+          startDate: '2019-08-24T14:15:22Z'
+          endDate: '2019-08-24T14:15:22Z'
+          location: 'Ensa Kenitra '
+          eventStatus: eventScheduled
+          sponsors:
+            - name: ONCF
+              sponsorType: gold
+              image: 'http://example.com'
+          workFeatured:
+            - category: conference
+              activity:
+                - name: Digital Well Being
+                  time: string
+          performers:
+            - name: Ahmad Reda Chami
+              about: CEO of Economical Consultance
+              image: 'http://example.com'
+          theme: AR/VR A New Tech Revolution
+          gallery:
+            - 'http://example.com'
+        example-3:
+          id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+          name: ENSAK Enterprise Forum (7th Edition)
+          startDate: '2019-08-24T14:15:22Z'
+          endDate: '2019-08-24T14:15:22Z'
+          location:
+            id: 105
+            latitude: 33.541287
+            longitude: -7.5485412
+            city: Kenitra
+            country: Morocco
+            state: Rabat-Sale-Kenitra
+            street: Av Mohammed VI
+            streetNumber: 15
+            zipCode: '12000'
+          eventStatus: eventScheduled
+          sponsors:
+            - name: ONCF
+              sponsorType: gold
+              image: 'http://example.com'
+          workFeatured:
+            - category: conference
+              activity:
+                - name: Digital Well Being
+                  time: string
+          performers:
+            - name: Ahmad Reda Chami
+              about: CEO of Economical Consultance
+              image: 'http://example.com'
+          theme: AR/VR A New Tech Revolution
+          gallery:
+            - 'http://example.com'
+          banner: 'http://example.com'
+      description: Event Template format that will be used in the Event landing page
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: This will be the id of the event
+        name:
+          type: string
+          description: Theme name of the Event
+          example: ENSAK Enterprise Forum (7th Edition)
+        startDate:
+          type: string
+          format: date-time
+          description: Start Date in ISO 8601 Format
+        endDate:
+          type: string
+          format: date-time
+        location:
+          $ref: ../common/models/location.v1.json
+        eventStatus:
+          type: string
+          enum:
+            - eventCancelled
+            - eventPostponed
+            - eventScheduled
+            - eventCompleted
+          default: eventScheduled
+        sponsors:
+          type: array
+          items:
+            $ref: ./eventTemplate/models/sponsor.v1.json
+        workFeatured:
+          type: array
+          items:
+            $ref: ./eventTemplate/models/workfeatured.v1.json
+        performers:
+          type: array
+          items:
+            $ref: ./eventTemplate/models/performer.v1.json
+        theme:
+          type: string
+          example: AR/VR A New Tech Revolution
+        gallery:
+          type: array
+          items:
+            type: string
+            format: uri
+        banner:
+          type: string
+          format: uri
+        eventType:
+          type: string
+          enum:
+            - Online
+            - OnPremises
+            - Hybrid
+      required:
+        - id
+        - name
+        - startDate
+        - endDate
+    Event-Preview:
+      title: Event Preview
+      type: object
+      description: Event model that will be displayed on the student platform
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        about:
+          type: string
+          example: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+        banner:
+          type: string
+          format: uri
+    Project:
+      title: Project
+      type: object
+      description: ''
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: Artificial Obsidian
+        submissionDate:
+          type: string
+          format: date
+        creationDate:
+          type: string
+          format: date
+        club:
+          type: string
+          example: EIC
+        industry:
+          type: string
+          example: Artificial Intelligence
+        about:
+          type: string
+          example: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+        media:
+          type: object
+          properties:
+            gallery:
+              type: array
+              items:
+                type: string
+                format: uri
+            videos:
+              type: array
+              items:
+                type: string
+                format: uri
+            innovators:
+              type: array
+              items:
+                $ref: '#/components/schemas/Public-User'
+    Enterprise:
+      title: Enterprise
+      type: object
+      description: Model describing the structure of an Enterprise
+      x-examples:
+        example-1:
+          id: oncf-maroc
+          name: ONCF Transportations
+          location:
+            id: 0
+            latitude: 33.541287
+            longitude: -7.5485412
+            city: Rabat
+            country: Morocco
+            state: Casablanca-Settat
+            street: Av Mohammed VI
+            streetNumber: 15
+            zipCode: '12000'
+          websiteUrl: 'http://example.com'
+          logoUrl: 'http://example.com'
+          about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+          industry: Logistics & Transportation
+      properties:
+        id:
+          type: string
+          example: oncf-maroc
+        name:
+          type: string
+          example: ONCF Transportations
+        location:
+          $ref: ../common/models/location.v1.json
+        websiteUrl:
+          type: string
+          format: uri
+        image:
+          type: string
+          format: uri
+        about:
+          type: string
+          example: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+        industry:
+          type: string
+          example: Logistics & Transportation
+    Resume:
+      title: Resume
+      type: object
+      description: ''
+      x-examples:
+        example-1:
+          id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+          resumeAvatar: 'http://example.com'
+          info:
+            firstName: Ouadrhiri Idrissi Azzouzi
+            lastName: Zakaria
+            email: user@example.com
+            phone: '+212639159203'
+            age: 21
+            city: Kenitra
+          experience:
+            - title: Mobile Developer
+              startDate: '2019-08-24'
+              endDate: null
+              about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+          education:
+            - title: Industrial Engineering
+              startDate: '2019-08-24'
+              endDate: '2019-08-24'
+              about: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+          skills:
+            - title: Programming
+              about: 'Java , C , C++, Haskell , Elixir'
+          misc:
+            - title: Sport
+              about: Swimming & Calisthenics
+          createdAt: '2019-08-24T14:15:22Z'
+          updatedAt: '2019-08-24T14:15:22Z'
+      properties:
+        id:
+          type: string
+          description: Since a user has a One-to-One Relationship with the user we will use the same user id to retrieve the resumes
+          format: uuid
+        resumeAvatar:
+          type: string
+          format: uri
+        info:
+          type: object
+          properties:
+            firstName:
+              type: string
+              example: Ouadrhiri Idrissi Azzouzi
+            lastName:
+              type: string
+              example: Zakaria
+            email:
+              type: string
+              format: email
+            phone:
+              type: string
+              example: '+212639159203'
+            age:
+              type: number
+              example: 21
+            city:
+              type: string
+              example: Kenitra
+        experience:
+          type: array
+          maxItems: 5
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Mobile Developer
+              startDate:
+                type: string
+                format: date
+              endDate:
+                type:
+                  - string
+                  - 'null'
+                format: date
+              about:
+                type: string
+                example: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+        education:
+          type: array
+          maxItems: 5
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Industrial Engineering
+              startDate:
+                type: string
+                format: date
+              endDate:
+                type: string
+                format: date
+              about:
+                type: string
+                example: '<h6><strong>INTITULÉ DU SUJET</strong></h6>\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\n<h6>DESCRIPTION</h6>\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\n<h6>COMPÉTENCES REQUISES :</h6>\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\n<h6>DURÉE DU STAGE</h6>\n<p>6 mois</p>\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\n<p>https://www.mascir.com/jobs/</p>'
+        skills:
+          type: array
+          maxItems: 5
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Programming
+              about:
+                type: string
+                example: 'Java , C , C++, Haskell , Elixir'
+        misc:
+          type: array
+          maxItems: 5
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Sport
+              about:
+                type: string
+                example: Swimming & Calisthenics
+        createDate:
+          type: string
+          format: date-time
+        updateDate:
+          type: string
+          format: date-time
+    Student:
+      title: Student
+      type: object
+      description: ''
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+          example: Zakaria
+        lastName:
+          type: string
+          example: Idrissi
+        dateOfBirth:
+          type: string
+          format: date
+        email:
+          type: string
+          format: email
+        createDate:
+          type: string
+          format: date-time
+        updateDate:
+          type: string
+          format: date-time
+        image:
+          type: string
+          format: uri
+        yearOfStudy:
+          type: string
+          example: 4th Year (Engineering Cycle)
+        studentID:
+          type: string
+          example: '17005242'
+        fieldOfStudy:
+          type: string
+          example: Computer Engineering
+        club:
+          type:
+            - string
+            - 'null'
+          example: EIC (ENSAK Informatics Club)
+        phone:
+          type: string
+          example: '+212639159203'
+        city:
+          type: string
+          example: Kenitra
+      x-examples:
+        Zakaria Idrissi:
+          id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+          firstName: Zakaria
+          lastName: Idrissi
+          dateOfBirth: '2019-08-24'
+          email: user@example.com
+          createDate: '2019-08-24T14:15:22Z'
+          updateDate: '2019-08-24T14:15:22Z'
+          image: 'http://example.com'
+          yearOfStudy: 4th Year (Engineering Cycle)
+          studentID: '17005242'
+          fieldOfStudy: Computer Engineering
+          club: EIC (ENSAK Informatics Club)
+          phone: '+212639159203'
+          city: Kenitra
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: ''
+  responses:
+    resptemplate:
+      description: Template Response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              httpStatusCode:
+                type: integer
+                example: 200
+              content:
+                type: object
+                properties:
+                  isSuccess:
+                    type: boolean
+                  data:
+                    type: object

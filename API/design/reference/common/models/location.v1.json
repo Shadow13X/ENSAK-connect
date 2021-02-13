@@ -1,0 +1,59 @@
+{
+  "title": "location",
+  "type": "object",
+  "x-examples": {
+    "Rabat MA": {
+      "id": 105,
+      "latitude": 33.541287,
+      "longitude": -7.5485412,
+      "city": "Rabat",
+      "country": "Morocco",
+      "state": "Casablanca-Settat",
+      "street": "Av Mohammed VI",
+      "streetNumber": 15,
+      "zipCode": "12000"
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "example": 105
+    },
+    "latitude": {
+      "type": "number",
+      "example": 33.541287
+    },
+    "longitude": {
+      "type": "number",
+      "example": -7.5485412
+    },
+    "city": {
+      "type": "string",
+      "example": "Rabat"
+    },
+    "country": {
+      "type": "string",
+      "example": "Morocco"
+    },
+    "state": {
+      "type": "string",
+      "example": "Casablanca-Settat"
+    },
+    "street": {
+      "type": "string",
+      "example": "Av Mohammed VI"
+    },
+    "streetNumber": {
+      "type": "number",
+      "example": 15
+    },
+    "zipCode": {
+      "type": "string",
+      "example": "12000"
+    },
+    "formattedLocation": {
+      "type": "string",
+      "example": "Kenitra , Morocco"
+    }
+  }
+}
