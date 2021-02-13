@@ -1,36 +1,20 @@
 <template>
   <div class="ensak-landing-page-container">
     <!-- Style Object Binding    -->
-<<<<<<< HEAD
-    <LandingBanner :style="{ backgroundImage: bannerUrl }"/>
+    <LandingBanner :target-date="targetDate" :style="{ backgroundImage: bannerUrl }"/>
     <LandingSpeakers :speakers="SpeakersData"/>
-=======
-    <LandingBanner :template-data="event" :style="{ backgroundImage: bannerUrl }"/>
-    <LandingBannerTimer :target-date="targetDate"/>
->>>>>>> 00f9cd44d59092a4391fe5262858b266eb39226c
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
 import LandingBanner from "@/components/landing/LandingBanner";
 import LandingSpeakers from "@/components/landing/LandingSpeakers";
-=======
 import { parseDate }      from "@/utils/utils";
-import LandingBanner      from "@/components/landing/LandingBanner";
-import LandingBannerTimer from "@/components/landing/LandingBannerTimer";
-
-
->>>>>>> 00f9cd44d59092a4391fe5262858b266eb39226c
 export default {
   name: "LandingPage",
   components: {
     LandingBanner,
-<<<<<<< HEAD
-    LandingSpeakers
-=======
-    LandingBannerTimer
->>>>>>> 00f9cd44d59092a4391fe5262858b266eb39226c
+    LandingSpeakers,
   },
   data()
   {

@@ -18,8 +18,6 @@ export default {
   flex-direction: row;
   justify-content: center;
   // border: 1px red dotted;
-  height: 15vh;
-  margin-bottom:2%;
   padding: 0 20px;
   width: 100vw;
 }

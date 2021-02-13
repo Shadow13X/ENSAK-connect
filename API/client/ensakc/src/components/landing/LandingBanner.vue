@@ -1,22 +1,27 @@
 <template>
   <div class="ensak-landing-banner-container">
-   <LandingNav/>
-   <LandingCallForAction/>
+    <LandingNav/>
+    <div>
+      <LandingCallForAction/>
+      <LandingBannerTimer :target-date="targetDate"/>
+    </div>
   </div>
 </template>
 
 <script>
 import LandingNav from "./LandingNav.vue";
 import LandingCallForAction from "./LandingCallForAction.vue";
+import LandingBannerTimer from "@/components/landing/LandingBannerTimer";
 
 export default {
   name: "LandingBanner",
   components: {
     LandingNav,
-    LandingCallForAction
+    LandingCallForAction,
+    LandingBannerTimer,
   },
   props: {
-    templateData: {
+    targetDate: {
       type: Object,
       required: true
     }

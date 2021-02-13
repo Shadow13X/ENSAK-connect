@@ -14,12 +14,6 @@ export default {
 
 <style lang="scss">
 
-<<<<<<< HEAD
-=======
-$side-margins: 50px;
-$curve-radius: 50px;
-
->>>>>>> 00f9cd44d59092a4391fe5262858b266eb39226c
 .ensak-landing-nav-container {
   display: flex;
   flex-direction: row;
@@ -35,18 +29,9 @@ $curve-radius: 50px;
 }
 
 .ensak-landing-login-button {
-<<<<<<< HEAD
   padding: 0px 30px 0px 30px;
   margin:auto 0;
   border-radius: 25px 0 25px 0;
-=======
-  width: 10%;
-  min-width: 150px ;
-  padding: 10px;
-  margin-right: $side-margins;
-
-  border-radius: $curve-radius 0 $curve-radius 0;
->>>>>>> 00f9cd44d59092a4391fe5262858b266eb39226c
   background-color: transparent;
   color: white;
   font-weight: 600;

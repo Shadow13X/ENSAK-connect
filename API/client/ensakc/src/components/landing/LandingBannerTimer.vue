@@ -1,28 +1,24 @@
 <template>
   <div class="countdown" loaded>
     <div class="countdown__num">
-      <span class="countdown__num--time">{{ displayDays }}</span>
-      <span class="countdown__num--unit">Days</span>
+      <span class="countdown__num--time">{{ displayWeeks }}</span>
+      <span class="countdown__num--unit">WEEKS</span>
     </div>
-    <span class="countdown__num--colon">:</span>
-
+    <div class="countdown__num">
+      <span class="countdown__num--time">{{ displayDays }}</span>
+      <span class="countdown__num--unit">DAYS</span>
+    </div>
     <div class="countdown__num">
       <span class="countdown__num--time">{{ displayHours }}</span>
-      <span class="countdown__num--unit">Hours</span>
+      <span class="countdown__num--unit">HOURS</span>
     </div>
-
-    <span class="countdown__num--colon">:</span>
-
     <div class="countdown__num">
       <span class="countdown__num--time">{{ displayMinutes }}</span>
-      <span class="countdown__num--unit">Minutes</span>
+      <span class="countdown__num--unit">MINUTES</span>
     </div>
-
-    <span class="countdown__num--colon">:</span>
-
     <div class="countdown__num">
       <span class="countdown__num--time">{{ displaySeconds }}</span>
-      <span class="countdown__num--unit">Minutes</span>
+      <span class="countdown__num--unit">SECONDS</span>
     </div>
   </div>
 </template>
@@ -37,6 +33,7 @@ export default {
   data()
   {
     return {
+      displayWeeks: 0,
       displayDays: 0,
       displayHours: 0,
       displayMinutes: 0,
@@ -58,6 +55,10 @@ export default {
     _days()
     {
       return this._hours * 24
+    },
+    _weeks()
+    {
+      return this._days * 7
     },
     END()
     {
@@ -91,8 +92,8 @@ export default {
           this.loaded = true
           return
         }
-
-        const DAYS = Math.floor(DISTANCE / this._days)
+        const WEEKS = Math.floor(DISTANCE / this._weeks)
+        const DAYS = Math.floor((DISTANCE % this._weeks) / this._days)
         const HOURS = Math.floor((DISTANCE % this._days) / this._hours)
         const MINUTES = Math.floor((DISTANCE % this._hours) / this._minutes)
         const SECONDS = Math.floor((DISTANCE % this._minutes) / this._seconds)
@@ -101,6 +102,7 @@ export default {
         this.displaySeconds = this.formatNum(SECONDS)
         this.displayHours = this.formatNum(HOURS)
         this.displayDays = this.formatNum(DAYS)
+        this.displayWeeks = this.formatNum(WEEKS)
         this.loaded = true
       }, 1000)
     }
@@ -113,7 +115,7 @@ export default {
 .countdown {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 20px;
+  margin: 10px 0;
 
   &__num {
     display: flex;
@@ -121,19 +123,14 @@ export default {
     padding: 0 10px;
 
     &--time {
-      color: var(--color-primary);
+      color: white;
       font-size: 40px;
     }
 
     &--unit {
-      color: var(--color-gray);
-      font-size: 12px;
-    }
-
-    &--colon {
-      color: var(--color-primary);
-      font-size: 40px;
-      line-height: 1.4em;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
     }
   }
 }
