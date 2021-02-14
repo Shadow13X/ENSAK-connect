@@ -14,42 +14,34 @@ export default {
 
 <style lang="scss">
 
-$side-margins: 50px;
-$curve-radius: 50px;
-
 .ensak-landing-nav-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
-
-  height: 20%;
+  // border: 1px red dotted;
+  height: 15vh;
+  padding: 0 20px;
   width: 100%;
-  //border: 2px red dotted;
-
   img {
-    height: 150px;
-    width: 250px;
-    margin: 10px 0 10px $side-margins;
+    height: 100%;
+    margin:auto 0;
   }
 }
 
 .ensak-landing-login-button {
-  width: 10%;
-  min-width: 150px ;
-  padding: 10px;
-  margin-right: $side-margins;
-
-  border-radius: $curve-radius 0 $curve-radius 0;
+  padding: 0px 30px 0px 30px;
+  margin:auto 0;
+  border-radius: 25px 0 25px 0;
   background-color: transparent;
   color: white;
-  font-weight: bold;
-  font-size: 1.3rem;
-  border: 5px white solid;
-  outline: none;
+  font-weight: 600;
+  font-size: 18px;
+  border: 2px white solid;
 
   &:hover {
     cursor: pointer;
+    background-color: white;
+    color: #040812;
   }
 }
 

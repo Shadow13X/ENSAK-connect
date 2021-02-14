@@ -1,0 +1,19 @@
+{
+  "title": "performer",
+  "type": "object",
+  "description": "",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Ahmad Reda Chami"
+    },
+    "about": {
+      "type": "string",
+      "example": "CEO of Economical Consultance"
+    },
+    "image": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}

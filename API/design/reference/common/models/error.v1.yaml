@@ -1,0 +1,40 @@
+title: Error
+type: object
+description: A standard error object.
+x-tags:
+  - Common
+x-examples:
+  '401':
+    httpStatusCode: 401
+    content: null
+    error:
+      message: Authorization has been denied for this request
+      exceptionMessage: 'null'
+      stackTrace: 'null'
+  '404':
+    httpStatusCode: '404'
+    content: null
+    error:
+      message: Resource not found
+      exceptionMessage: 'null'
+      stackTrace: 'null'
+properties:
+  httpStatusCode:
+    type: number
+    example: 404
+  content:
+    type: 'null'
+  error:
+    type: object
+    properties:
+      message:
+        type: string
+        example: Resource not Found
+      exceptionMessage:
+        type: string
+        example: 'null'
+      stackTrace:
+        type: string
+        example: 'null'
+required:
+  - httpStatusCode
