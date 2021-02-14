@@ -23,11 +23,12 @@ const routes = [
   {
     path: '/login',
   },
+  //===================== App Routes ===============================
   {
-    path: '/',
+    path: '/app',
   },
   {
-    path: '/login',
+    path: '/',
   },
 ]
 
