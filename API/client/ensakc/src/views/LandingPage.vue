@@ -2,7 +2,7 @@
   <div class="ensak-landing-page-container">
     <!-- Style Object Binding    -->
     <LandingBanner :target-date="targetDate" :style="{ backgroundImage: bannerUrl }"/>
-    <LandingSpeakers :speakers="SpeakersData"/>
+    <LandingSpeakers :speakers="speakersData"/>
   </div>
 </template>
 
@@ -10,6 +10,7 @@
 import LandingBanner from "@/components/landing/LandingBanner";
 import LandingSpeakers from "@/components/landing/LandingSpeakers";
 import { parseDate }      from "@/utils/utils";
+
 export default {
   name: "LandingPage",
   components: {
@@ -21,7 +22,7 @@ export default {
     return {
       event: {},
       bannerUrl: '',
-      SpeakersData:[]
+      speakersData: []
     }
   },
   //Todo: Create an EndPoint that returns the current event
@@ -31,7 +32,7 @@ export default {
         .then(response => {
           this.event = response.data.content.data;
           this.bannerUrl = "url('" + this.event.banner + "')";
-          this.SpeakersData = this.event.performers;
+          this.speakersData = this.event.performers;
           console.log(response.data);
           console.log(parseDate(this.event.startDate));
         })

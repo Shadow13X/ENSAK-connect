@@ -1,7 +1,9 @@
 <template>
   <div class="ensak-landing-speakers-container">
       <H1 class="ensak-landing-speakers-title">OUR<span style="font-weight: 600;color:#28DFFE">SPEAKERS</span></H1>
-      <div v-for="speaker in speakers" :key='speaker' class="ensak-landing-speakers-speaker">
+      <!-- Keys are mainly used as a hint to the rendering algorithms if the list get updated, 
+      while recommended it's not necessary, and if used it should be a primitive data type (not Object,Array...) -->
+      <div v-for="speaker in speakers" :key='speaker.image' class="ensak-landing-speakers-speaker">
         <img class='ensak-landing-speakers-speaker-image' :src='speaker.image' :alt='"image of " +speaker.name'/>
         <div class='ensak-landing-speakers-speaker-name'>{{speaker.name}}</div>
         <div class='ensak-landing-speakers-speaker-about'>{{speaker.about}}</div>
@@ -18,7 +20,7 @@ export default {
   },
   props: {
     speakers : {
-      type: Object,
+      type: Array,
       required: true
     }
   }
