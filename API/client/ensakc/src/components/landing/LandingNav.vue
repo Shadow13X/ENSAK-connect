@@ -2,14 +2,13 @@
   <div class="ensak-landing-nav-container" >
     <!--    Todo: Find a better alternative by making a base asset path as a variable -->
     <img src="./../../assets/branding/ensak.png" alt="Ensak Branding">
-    <button class="ensak-landing-login-button">LOGIN</button>
+    <button class="ensak-landing-login"><router-link to="login" class="ensak-landing-login-button">LOGIN</router-link></button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "LandingNav"
-}
+  name: "LandingNav"}
 </script>
 
 <style lang="scss">
@@ -28,20 +27,25 @@ export default {
   }
 }
 
-.ensak-landing-login-button {
+.ensak-landing-login{
   padding: 0px 30px 0px 30px;
   margin:auto 0;
   border-radius: 25px 0 25px 0;
-  background-color: transparent;
-  color: white;
   font-weight: 600;
   font-size: 18px;
+  background-color: transparent;
   border: 2px white solid;
 
   &:hover {
     cursor: pointer;
     background-color: white;
-    color: #040812;
+  }
+  &-button{
+    color: white !important;
+    &:hover {
+      cursor: pointer;
+      color: #040812 !important;
+    }
   }
 }
 

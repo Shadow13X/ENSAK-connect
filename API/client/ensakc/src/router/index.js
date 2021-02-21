@@ -22,12 +22,8 @@ const routes = [
   //===================== Authentication Routes =======================
   {
     path: '/login',
-  },
-  {
-    path: '/',
-  },
-  {
-    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginPage.vue')
   },
 ]
 
