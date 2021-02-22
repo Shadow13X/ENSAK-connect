@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Home        from '../views/Home.vue'
 import LandingPage from "@/views/LandingPage";
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,7 +22,12 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/LoginPage.vue')
+    component: () => import(/* webpackChunkName: "Login" */ '../views/LoginPage.vue')
+  },
+  {
+    path: '/student',
+    name: 'Student',
+    component: () => import(/* webpackChunkName: "Student" */'../views/student/StudentPage.vue')
   },
 ]
 
