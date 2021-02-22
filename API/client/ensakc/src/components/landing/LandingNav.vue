@@ -2,7 +2,7 @@
   <div class="ensak-landing-nav-container" >
     <!--    Todo: Find a better alternative by making a base asset path as a variable -->
     <img src="./../../assets/branding/ensak.png" alt="Ensak Branding">
-    <button class="ensak-landing-login-button">LOGIN</button>
+    <router-link to="/app"><button class="ensak-landing-login-button">LOGIN</button></router-link>
   </div>
 </template>
 

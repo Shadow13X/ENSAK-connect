@@ -1,7 +1,8 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue         from 'vue'
+import VueRouter   from 'vue-router'
 // import Home        from '../views/Home.vue'
 import LandingPage from "@/views/LandingPage";
+//import StudentPage from "@/views/StudentPage";
 
 Vue.use(VueRouter)
 
@@ -20,16 +21,13 @@ const routes = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   // },
   //===================== Authentication Routes =======================
-  {
-    path: '/login',
-  },
+
   //===================== App Routes ===============================
   {
     path: '/app',
-  },
-  {
-    path: '/',
-  },
+    name: 'StudentApp',
+    component: () => import(/* webpackChunkName: "student" */ '../views/StudentPage')
+  }
 ]
 
 // Needs Server Config in production
