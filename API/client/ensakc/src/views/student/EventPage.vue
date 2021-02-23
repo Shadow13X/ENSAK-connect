@@ -35,19 +35,20 @@
         </div>
     </div>
     <div class="ensak-event-sider">
-        <Calendar :Dates="datesData"/>
+        <router-view></router-view>
+        <!-- <Calendar :Dates="datesData"/> -->
     </div>
   </div>
 </template>
 
 <script>
 import { Icon } from 'ant-design-vue'
-import Calendar from '../../components/student/Calendar'
+// import Calendar from '../../components/student/Calendar'
 export default {
   name: "EventPage",
   components:{
     "a-icon": Icon,
-    Calendar
+    // Calendar
   },
   data()
   {
@@ -80,14 +81,9 @@ export default {
         .then(response => {
           this.event = response.data.content.data;
           this.name = this.event.name;
-          this.datesData = {
-              "startDate": this.event.endDate,
-              "endDate": this.event.startDate
-          };
           var s = new Date(this.event.endDate)
           var en =  new Date(this.event.startDate)
           this.date = this.Months[s.getMonth()]+" "+s.getDate()+", "+s.getFullYear()+" - "+this.Months[en.getMonth()]+" "+en.getDate()+", "+en.getFullYear();
-          console.log(this.datesData);
         })
         .catch(e => {
           // this.errors.push(e)

@@ -2,11 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Home        from '../views/Home.vue'
 import LandingPage from '@/views/LandingPage'
-import StudentPage from '@/views/student/StudentPage'
-import EventPage from '@/views/student/EventPage'
-import ResumePage from '@/views/student/ResumePage'
-import EntreprisesPage from '@/views/student/EntreprisesPage'
-import ProjectsPage from '@/views/student/ProjectsPage'
 // import Calendar from '@/components/student/Calendar'
 Vue.use(VueRouter)
 
@@ -29,28 +24,28 @@ const routes = [
   // },
   {
     path: '/student',
-    component: StudentPage,
+    component: () => import('@/views/student/StudentPage'),
     children: [
       {
         // UserProfile will be rendered inside User's <router-view>
         // when /user/:id/profile is matched
         path: '/student/resume',
         name: 'Resume',
-        component: ResumePage
+        component: () => import('@/views/student/ResumePage')
       },
       {
         // UserProfile will be rendered inside User's <router-view>
         // when /user/:id/profile is matched
         path: '/student/entreprises',
         name: 'Entreprise',
-        component: EntreprisesPage
+        component: () => import('@/views/student/EntreprisesPage')
       },
       {
         // UserProfile will be rendered inside User's <router-view>
         // when /user/:id/profile is matched
         path: '/student/projects',
         name: 'Projects',
-        component: ProjectsPage
+        component: () => import('@/views/student/ProjectsPage')
       },
       {
         // UserProfile will be rendered inside User's <router-view>
@@ -67,8 +62,12 @@ const routes = [
       },
       {
         path: '/',
-        name: 'Event',
-        component: EventPage
+        component: () => import('@/views/student/EventPage'),
+        children:[{
+          path: '/',
+          name: 'Event',
+          component: () => import('@/components/student/Calendar')
+        }]
       }
     ]
   }

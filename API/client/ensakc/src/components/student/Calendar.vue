@@ -19,6 +19,8 @@ export default {
     return {
       EventYear:"2021",
       data:false,
+      Dates:{},
+      el:"",
       Months:[
         'January',
         'february',
@@ -35,48 +37,54 @@ export default {
       ]
     }
   },
-  props:{
-    Dates : {
-      type: Object,
-      required: true
-    }
-  },
-  mounted(){
+  created(){
       //ant-fullcalendar-selected-day
-      this.mount();
+      this.axios.get('/events/497f6eca-6276-4993-bfeb-53cbbbba6f08/template')
+        .then(response => {
+          this.event = response.data.content.data;
+          this.Dates = {
+              "startDate": this.event.endDate,
+              "endDate": this.event.startDate
+          };
+        })
+        .then(() => {
+          console.log(this.Dates);
+          this.el = document;
+        })
+        .then(()=>{
+          var endDate = new Date(this.Dates.endDate);
+          endDate = endDate.getFullYear()+"-"+endDate.getMonth()+"-"+endDate.getDate();
+          if( this.Dates.endDate <= this.Dates.startDate){
+            throw("error");
+          }
+          var d=new Date(this.Dates.startDate);
+          var flag=true;
+          while(flag){
+            d.setDate(d.getDate() + 1);
+            var s = d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+            console.log('[title="'+this.Months[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear()+'"]')
+            this.el = document.querySelectorAll('[title="'+this.Months[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear()+'"]');
+            this.el[0].classList.add("ant-fullcalendar-selected-day");
+            // console.log(this.el[0].classList);
+            if(s===endDate){
+              break
+            }
+          }
+        })
+        .catch(e => {
+          // this.errors.push(e)
+          console.log(e);
+        })
   },
   methods:{
     date(d){
       return parseDate(d)
     },
     dateFetched(){
-      console.log(this.Dates)
       if(this.Dates.startDate == undefined ){
         return false;
       }
       return true;
-    },
-    mount(){
-      console.log(this.Dates);
-      var endDate = new Date(this.Dates.endDate);
-      endDate = endDate.getFullYear()+"-"+endDate.getMonth()+"-"+endDate.getDate();
-      if( this.Dates.endDate <= this.Dates.startDate){
-        return false;
-      }
-      var d=new Date(this.Dates.startDate);
-      var flag=true;
-      while(flag){
-        d.setDate(d.getDate() + 1);
-        var s = d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
-        var el = document.querySelectorAll('[title="'+this.Months[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear()+'"]');
-        console.log(el);
-        el[0].classList.add("ant-fullcalendar-selected-day");
-        console.log(el[0].classList);
-        if(s===endDate){
-          break
-        }
-      }
-    return true;
     }
   }
 }
