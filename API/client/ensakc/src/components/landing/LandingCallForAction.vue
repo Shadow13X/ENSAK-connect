@@ -19,7 +19,7 @@ export default {
   justify-content: center;
   // border: 1px red dotted;
   padding: 0 20px;
-  width: 100vw;
+  width: 100%;
 }
 
 .ensak-landing-sponsorship-button {
