@@ -37,7 +37,7 @@
             <div class="ensak-enterprises-sider-filters-fields">
                 <a-select v-model="enterpriseName"
                     mode="multiple"
-                    placeholder="name"
+                    placeholder="Enterprise Name"
                     option-label-prop="label" 
                     class="ensak-enterprises-sider-filters-fields-select">
                     <a-select-option v-for="e in this.enterprises" :key="e" :value="e.name" :label="e.name">
