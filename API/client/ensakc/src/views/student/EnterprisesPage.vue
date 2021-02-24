@@ -1,5 +1,5 @@
 <template>
-  <div class="ensak-projects">
+  <div class="ensak-enterprises">
     <!-- Style Object Binding    -->
    
     <!-- <a-card hoverable style="width: 240px">
@@ -14,41 +14,41 @@
         </template>
         </a-card-meta>
     </a-card> -->
-    <div class="ensak-projects-main">
-        <div style='width:100%' v-for='p in this.projects' :key='p' >
+    <div class="ensak-enterprises-main">
+        <div style='width:100%' v-for='p in this.enterprises' :key='p' >
             <div style='width:100%' v-if="notFiltered(p)">
-                <router-link :to="'/student/projects/'+p.id">
-                    <div class='ensak-projects-main-project'>
-                        <img class='ensak-projects-main-project-image' alt='club logo' :src="p.clubLogo">
-                        <div class='ensak-projects-main-project-data'>
-                            <div class='ensak-projects-main-project-data-title'>{{p.name}} (by {{p.club}})</div>
-                            <div class='ensak-projects-main-project-data-description'>{{(p.about).substring(0,100)}}...</div>
+                <router-link :to="'/student/enterprises/'+p.id">
+                    <div class='ensak-enterprises-main-enterprise'>
+                        <img class='ensak-enterprises-main-enterprise-image' alt='enterprise logo' :src="p.image">
+                        <div class='ensak-enterprises-main-enterprise-data'>
+                            <div class='ensak-enterprises-main-enterprise-data-title'>{{p.name}}</div>
+                            <div class='ensak-enterprises-main-enterprise-data-description'>{{(p.about).substring(0,100)}}...</div>
                         </div>
                     </div>
                 </router-link>
             </div>
         </div>
     </div>
-    <div class="ensak-projects-sider">
-        <div class="ensak-projects-sider-filters">
-            <div class="ensak-projects-sider-filters-header">
+    <div class="ensak-enterprises-sider">
+        <div class="ensak-enterprises-sider-filters">
+            <div class="ensak-enterprises-sider-filters-header">
                 Filter By
             </div>
-            <div class="ensak-projects-sider-filters-fields">
-                <a-select v-model="club"
+            <div class="ensak-enterprises-sider-filters-fields">
+                <a-select v-model="enterpriseName"
                     mode="multiple"
-                    placeholder="Club"
+                    placeholder="name"
                     option-label-prop="label" 
-                    class="ensak-projects-sider-filters-fields-select">
-                    <a-select-option v-for="i in this.clb" :key="i" :value="i" :label="i">
-                        {{i}}
+                    class="ensak-enterprises-sider-filters-fields-select">
+                    <a-select-option v-for="e in this.enterprises" :key="e" :value="e.name" :label="e.name">
+                        {{e.name}}
                     </a-select-option>
                 </a-select>
                 <a-select v-model="industry"
                     mode="multiple"
                     placeholder="Industry"
                     option-label-prop="label" 
-                    class="ensak-projects-sider-filters-fields-select">
+                    class="ensak-enterprises-sider-filters-fields-select">
                     <a-select-option v-for="i in this.inds" :key="i" :value="i" :label="i">
                         {{i}}
                     </a-select-option>
@@ -62,7 +62,7 @@
 <script>
 import { Select } from 'ant-design-vue'
 export default {
-  name: "ProjectsPage",
+  name: "enterprisesPage",
   components:{
     "a-select": Select,
     "a-select-option": Select.Option,
@@ -73,17 +73,16 @@ export default {
     return {
         industry:[],
         industries:[],
-        club:[],
-        clubs:[],
-        projects:[],
+        enterpriseName:[],
+        enterprisesNames:[],
+        enterprises:[],
         inds:[],
-        clb:[],
     }
   },
   watch: {
-    club(val) {
-      console.log(`club:`, val);
-      this.clubs = val;
+    entrepriseName(val) {
+      console.log(`name:`, val);
+      this.eterprisesNames = val;
     },
     industry(val){
       console.log(`industry:`, val);
@@ -93,11 +92,11 @@ export default {
   //Todo: Create an EndPoint that returns the current event
   beforeCreate()
   {
-    this.axios.get('/projects')
+    this.axios.get('/enterprises')
         .then(response => {
-          this.projects = response.data.content.data;
+          this.enterprises = response.data.content.data;
           this.inds = (response.data.content.data).map(x => x.industry)
-          this.clb = (response.data.content.data).map(x => x.club)
+          console.log(this.inds)
         })
         .catch(e => {
           // this.errors.push(e)
@@ -106,15 +105,15 @@ export default {
   },
   methods:{
       notFiltered(p){
-          console.log(p.club)
+          console.log(p.name)
           console.log(p.industry)
-          console.log((this.clubs).includes(p.club) || (this.industries).includes(p.industry))
-          console.log(!((this.clubs).length && (this.industries).length))
+          console.log((this.enterprisesNames).includes(p.name) || (this.industries).includes(p.industry))
+          console.log(!((this.enterprisesNames).length && (this.industries).length))
           if (
-                ((this.clubs).includes(p.club) && (this.industries).includes(p.industry))
-             || (!(this.clubs).includes(p.club) && !(this.industries).includes(p.industry) && !(this.clubs).length && !(this.industries).length)
-             || ((this.clubs).includes(p.club) && !(this.industries).length)
-             || ((this.industries).includes(p.industry) && !(this.clubs).length)
+                ((this.enterprisesNames).includes(p.name) && (this.industries).includes(p.industry))
+             || (!(this.enterprisesNames).includes(p.name) && !(this.industries).includes(p.industry) && !(this.enterprisesNames).length && !(this.industries).length)
+             || ((this.enterprisesNames).includes(p.name) && !(this.industries).length)
+             || ((this.industries).includes(p.industry) && !(this.enterprisesNames).length)
             ) {
               return true;
           }
@@ -131,7 +130,7 @@ export default {
   margin: 0;
   padding: 0;
 }
-.ensak-projects{
+.ensak-enterprises{
     display:flex;
     flex-direction: row;
     width:100%;
@@ -170,7 +169,7 @@ export default {
     &-main{
         width:calc(100vw - 620px);
         padding:10px 0;
-        &-project{
+        &-enterprise{
             display:flex;
             box-shadow: 0px 0px 8px 1px rgba(1, 62, 122, 0.36);
             border-radius:25px 0;

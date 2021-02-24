@@ -22,17 +22,17 @@
           </div>
         </div>
         <a-divider class="divider"/>
-        <a-menu  class="ensak-student-layout-body-sider-menu" mode="inline"  :selectedKeys="[this.$route.path]" :style="{ borderRight: 0 }">
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="/event">
+        <a-menu  class="ensak-student-layout-body-sider-menu" mode="inline"  :selectedKeys="[this.$route.name]" :style="{ borderRight: 0 }">
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Event">
             <router-link to="/student/" >Event</router-link>
           </a-menu-item>
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="/resume">
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Resume">
             <router-link to="/student/resume" >Resume</router-link>
           </a-menu-item>
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="/entreprises">
-            <router-link to="/student/entreprises" >Entreprises</router-link>
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Enterprises">
+            <router-link to="/student/enterprises" >Entreprises</router-link>
           </a-menu-item>
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="/projects">
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Projects">
             <router-link to="/student/projects" >Projects</router-link>
           </a-menu-item>
         </a-menu>
@@ -64,7 +64,7 @@ export default {
   },
   data() {
     return {
-      SelectedKey:"0",
+      SelectedKey:"/event",
       collapsed: false,
     };
   },
@@ -129,7 +129,7 @@ export default {
     }
     &-main{
       background: '#fff';
-      padding: '24px';
+      padding: 10px;
       margin: 0;
       min-height: '280px';
       overflow-y:scroll;

@@ -34,15 +34,22 @@ const routes = [
         name: 'Resume',
         component: () => import('@/views/student/ResumePage'),
         children:[
-          
+
         ]
       },
       {
         // UserProfile will be rendered inside User's <router-view>
         // when /user/:id/profile is matched
-        path: '/student/entreprises',
-        name: 'Entreprise',
-        component: () => import('@/views/student/EntreprisesPage')
+        path: '/student/enterprises',
+        name: 'Enterprises',
+        component: () => import('@/views/student/EnterprisesPage')
+      },
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: '/student/enterprises/:id',
+        name: 'Enterprises',
+        component: () => import('@/views/student/EnterprisePage')
       },
       {
         // UserProfile will be rendered inside User's <router-view>
@@ -50,6 +57,13 @@ const routes = [
         path: '/student/projects',
         name: 'Project',
         component: () => import('@/views/student/ProjectsPage')
+      },
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: '/student/projects/:id',
+        name: 'Project',
+        component: () => import('@/views/student/ProjectPage')
       },
       {
         // UserProfile will be rendered inside User's <router-view>
