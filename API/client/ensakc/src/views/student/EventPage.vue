@@ -31,31 +31,47 @@
                 <button class="ensak-event-main-cfa-participate-button">SPONSORSHIP</button>
                 <button class="ensak-event-main-cfa-save-the-date-button">SAVE THE DATE</button>
             </div>
-            <div class="ensak-event-main-about"></div>
+            <div class="ensak-event-main-about">
+                <div class="ensak-event-main-about-header">About</div>
+                <div class="ensak-event-main-about-content">{{this.about}}</div>
+
+            </div>
         </div>
     </div>
     <div class="ensak-event-sider">
-        <router-view></router-view>
-        <!-- <Calendar :Dates="datesData"/> -->
+        <Calendar />
+        <div class="ensak-event-sider-participants">
+            <div class="ensak-event-sider-participants-header">
+                {{this.count}} Participant<span v-if="this.count > 1">s</span>
+            </div>
+            <div class="ensak-event-sider-participants-images">
+                <div class="ensak-event-sider-participants-images-item" v-for="p in this.participants" :key="p">
+                    <img :src="p" alt="img"/>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
 import { Icon } from 'ant-design-vue'
-// import Calendar from '../../components/student/Calendar'
+import Calendar from '../../components/student/Calendar'
 export default {
   name: "EventPage",
   components:{
     "a-icon": Icon,
-    // Calendar
+    Calendar
   },
   data()
   {
     return {
+      count:0,
+      participants:[],
       event: {},
       bannerUrl: '',
       datesData:{},
+      about:'',
       name:"",
       Months:[
         'January',
@@ -77,13 +93,24 @@ export default {
   //Todo: Create an EndPoint that returns the current event
   beforeCreate()
   {
-    this.axios.get('/events/497f6eca-6276-4993-bfeb-53cbbbba6f08/template')
+    this.axios.get('/events/497f6eca-6276-4993-bfeb-53cbbbba6f09/preview')
         .then(response => {
           this.event = response.data.content.data;
           this.name = this.event.name;
+          this.about = this.event.about;
           var s = new Date(this.event.endDate)
           var en =  new Date(this.event.startDate)
           this.date = this.Months[s.getMonth()]+" "+s.getDate()+", "+s.getFullYear()+" - "+this.Months[en.getMonth()]+" "+en.getDate()+", "+en.getFullYear();
+        })
+        .catch(e => {
+          // this.errors.push(e)
+          console.log(e);
+        })
+    this.axios.get('/events/497f6eca-6276-4993-bfeb-53cbbbba6f08/participants')
+        .then(response => {
+          this.count = response.data.content.data.totalCount;
+          this.participants = response.data.content.data.data.image;
+          console.log(response.data.content.data)
         })
         .catch(e => {
           // this.errors.push(e)
@@ -109,6 +136,35 @@ export default {
         width:300px;
         float:right;
         padding:10px;
+        display:flex;
+        flex-wrap:wrap;
+        flex-direction:column;
+        &-participants{
+            margin: 10px 0 0 0;
+            padding:15px;
+            flex: 1 1 auto;
+            overflow-y:scroll;
+            background: white;
+            border-radius: 25px 0;
+            box-shadow: 0px 0px 8px 1px rgba(1, 62, 122, 0.36);
+            z-index:800;
+            &-header{
+                text-align:center;
+                color:#0061B7;
+                font-size: 20px;
+                font-weight: 600;
+                margin:0 0 15px 0;
+            }
+            &-images{
+                text-align: left;
+                &-item{
+                    margin:5px;
+                    width:15%;
+                    background:black;
+                    border-radius:50%;
+                }
+            }
+        }
     }
     &-main{
         width:calc(100vw - 620px);
@@ -163,6 +219,25 @@ export default {
                     background-color: transparent;
                     color: white;
                 }
+            }
+        }
+        &-about{
+            text-align: left !important;
+            padding:10px;
+            &-header{
+                color: #0061B7;
+                font-size: 20px;
+                font-weight: 600;
+                padding: 10px 40px;
+            }
+            &-content{
+                color: #00264B;
+                font-size: 14px;
+                font-weight: 200;
+                padding: 0 20px 10px 20px;
+                text-align: justify;
+                text-justify: inter-word;
+                text-indent: 20px;
             }
         }
     }

@@ -24,6 +24,7 @@ const routes = [
   // },
   {
     path: '/student',
+    redirect: {name:"Event"},
     component: () => import('@/views/student/StudentPage'),
     children: [
       {
@@ -31,7 +32,10 @@ const routes = [
         // when /user/:id/profile is matched
         path: '/student/resume',
         name: 'Resume',
-        component: () => import('@/views/student/ResumePage')
+        component: () => import('@/views/student/ResumePage'),
+        children:[
+          
+        ]
       },
       {
         // UserProfile will be rendered inside User's <router-view>
@@ -44,7 +48,7 @@ const routes = [
         // UserProfile will be rendered inside User's <router-view>
         // when /user/:id/profile is matched
         path: '/student/projects',
-        name: 'Projects',
+        name: 'Project',
         component: () => import('@/views/student/ProjectsPage')
       },
       {
@@ -61,13 +65,9 @@ const routes = [
         }
       },
       {
-        path: '/',
-        component: () => import('@/views/student/EventPage'),
-        children:[{
-          path: '/',
-          name: 'Event',
-          component: () => import('@/components/student/Calendar')
-        }]
+        path: '/student/event',
+        name: 'Event',
+        component: () => import('@/views/student/EventPage')
       }
     ]
   }

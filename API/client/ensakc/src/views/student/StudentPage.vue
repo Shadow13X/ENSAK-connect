@@ -22,17 +22,17 @@
           </div>
         </div>
         <a-divider class="divider"/>
-        <a-menu  class="ensak-student-layout-body-sider-menu" mode="inline"  :default-selected-keys="[SelectedKey]"  :default-open-keys="['sub1']"  :style="{ borderRight: 0 }">
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="1">
+        <a-menu  class="ensak-student-layout-body-sider-menu" mode="inline"  :selectedKeys="[this.$route.path]" :style="{ borderRight: 0 }">
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="/event">
             <router-link to="/student/" >Event</router-link>
           </a-menu-item>
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="2">
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="/resume">
             <router-link to="/student/resume" >Resume</router-link>
           </a-menu-item>
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="3">
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="/entreprises">
             <router-link to="/student/entreprises" >Entreprises</router-link>
           </a-menu-item>
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="4">
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="/projects">
             <router-link to="/student/projects" >Projects</router-link>
           </a-menu-item>
         </a-menu>
@@ -68,8 +68,7 @@ export default {
       collapsed: false,
     };
   },
-  mounted() {
-      console.log(this.$route.name);
+  beforeCreate() {
   }
 }
 </script>
@@ -112,6 +111,7 @@ export default {
         &-content{
           margin-top:20px;
           &-name{
+            color:#0061B7;
             font-size:20pt;
           }
         }
