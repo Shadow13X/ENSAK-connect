@@ -143,7 +143,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 * {
   font-family: 'Barlow', sans-serif;
   box-sizing: border-box;
