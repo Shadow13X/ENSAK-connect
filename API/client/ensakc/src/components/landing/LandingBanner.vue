@@ -1,6 +1,6 @@
 <template>
   <div class="ensak-landing-banner-container">
-    <LandingNav/>
+    <LandingNav @clicked-login="showModal"/>
     <div>
       <LandingCallForAction/>
       <LandingBannerTimer :target-date="targetDate"/>
@@ -24,6 +24,11 @@ export default {
     targetDate: {
       type: Object,
       required: true
+    }
+  },
+  methods:{
+    showModal(a){
+      this.$emit('show-modal',a);
     }
   }
 }

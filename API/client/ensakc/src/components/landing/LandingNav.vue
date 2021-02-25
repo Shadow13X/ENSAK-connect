@@ -2,13 +2,19 @@
   <div class="ensak-landing-nav-container" >
     <!--    Todo: Find a better alternative by making a base asset path as a variable -->
     <img src="./../../assets/branding/ensak.png" alt="Ensak Branding">
-    <button class="ensak-landing-login"><router-link to="login" class="ensak-landing-login-button">LOGIN</router-link></button>
+    <button class="ensak-landing-login" @click="login">LOGIN</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "LandingNav"}
+  name: "LandingNav",
+  methods:{
+    login(){
+      this.$emit('clicked-login',true);
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -35,7 +41,7 @@ export default {
   font-size: 18px;
   background-color: transparent;
   border: 2px white solid;
-
+  color:white;
   &:hover {
     cursor: pointer;
     background-color: white;
