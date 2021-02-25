@@ -84,6 +84,39 @@ const routes = [
         component: () => import('@/views/student/EventPage')
       }
     ]
+  },
+  {
+    path: '/enterprise',
+    redirect: {path:"/enterprise/event"},
+    component: () => import('@/views/sponsor/SponsorPage'),
+    children: [
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: '/enterprise/resume',
+        name: 'Resume',
+        component: () => import('@/views/sponsor/ResumesPage')
+      },
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: '/enterprise/projects/:id',
+        name: 'Projects',
+        component: () => import('@/views/student/ProjectPage')
+      },
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: '/enterprise/projects',
+        name: 'Projects',
+        component: () => import('@/views/student/ProjectsPage')
+      },
+      {
+        path: '/enterprise/event',
+        name: 'Event',
+        component: () => import('@/views/student/EventPage')
+      }
+    ]
   }
 ]
 

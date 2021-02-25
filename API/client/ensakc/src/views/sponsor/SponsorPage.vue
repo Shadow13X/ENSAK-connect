@@ -1,44 +1,41 @@
 <template>
-  <a-layout class="ensak-student-layout">
-    <a-layout-header class="ensak-student-layout-nav">
-      <router-link to="/"><div class="ensak-student-layout-header-logo" ></div></router-link>
+  <a-layout class="ensak-enterprise-layout">
+    <a-layout-header class="ensak-enterprise-layout-nav">
+      <router-link to="/"><div class="ensak-enterprise-layout-header-logo" ></div></router-link>
       <!-- <img src="./../../assets/branding/logoFEE.png" alt="Ensak Branding"> -->
-      <div class="ensak-student-layout-header-menu" >
-        <a-icon class="ensak-student-layout-header-menu-item" type="setting" />
-        <a-icon class="ensak-student-layout-header-menu-item" type="bell" />
-        <span class="ensak-student-layout-header-menu-item"><button class="ensak-student-layout-logout"><router-link to="logout" class="ensak-student-layout-logout-button">LOGOUT</router-link></button></span>
+      <div class="ensak-enterprise-layout-header-menu" >
+        <a-icon class="ensak-enterprise-layout-header-menu-item" type="setting" />
+        <a-icon class="ensak-enterprise-layout-header-menu-item" type="bell" />
+        <span class="ensak-enterprise-layout-header-menu-item"><button class="ensak-enterprise-layout-logout"><router-link to="logout" class="ensak-enterprise-layout-logout-button">LOGOUT</router-link></button></span>
       </div>
     </a-layout-header>
-    <a-layout class="ensak-student-layout-body">
-      <a-layout-sider width="300" class="ensak-student-layout-body-sider" style="background: #fff">
-        <div class="ensak-student-layout-body-sider-profile">
-          <div class="ensak-student-layout-body-sider-profile-image">
-            <router-link to="/profile" ><img class="ensak-student-layout-body-sider-profile-image" src="./../../assets/branding/logoFEE.png" alt="" style="border-radius:50%;
-          box-shadow: 0px 8px 34px 1px rgba(0, 54, 108, 0.52);"></router-link>
+    <a-layout class="ensak-enterprise-layout-body">
+      <a-layout-sider width="300" class="ensak-enterprise-layout-body-sider" style="background: #fff">
+        <div class="ensak-enterprise-layout-body-sider-profile">
+          <div class="ensak-enterprise-layout-body-sider-profile-image">
+            <img class="ensak-enterprise-layout-body-sider-profile-image" :src="this.project.image" :alt="this.project.image" style="border-radius:50%;
+          box-shadow: 0px 8px 34px 1px rgba(0, 54, 108, 0.52);">
           </div>
-          <div class="ensak-student-layout-body-sider-profile-content">
-            <div class="ensak-student-layout-body-sider-profile-content-name">Lorem <span style='font-weight:600;'>Ipsum</span></div>
-            <div class="ensak-student-layout-body-sider-profile-content-email">kikou@kikou.com</div>
+          <div class="ensak-enterprise-layout-body-sider-profile-content">
+            <div class="ensak-enterprise-layout-body-sider-profile-content-name"><span style='font-weight:600;'>{{this.project.name}}</span></div>
+            <div class="ensak-enterprise-layout-body-sider-profile-content-email">kikou@kikou.com</div>
           </div>
         </div>
         <a-divider class="divider"/>
-        <a-menu  class="ensak-student-layout-body-sider-menu" mode="inline"  :selectedKeys="[this.$route.name]" :style="{ borderRight: 0 }">
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Event">
-            <router-link to="/student/" >Event</router-link>
+        <a-menu  class="ensak-enterprise-layout-body-sider-menu" mode="inline"  :selectedKeys="[this.$route.name]" :style="{ borderRight: 0 }">
+          <a-menu-item class="ensak-enterprise-layout-body-sider-menu-item" key="Event">
+            <router-link to="/enterprise/" >Event</router-link>
           </a-menu-item>
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Resume">
-            <router-link to="/student/resume" >Resume</router-link>
+          <a-menu-item class="ensak-enterprise-layout-body-sider-menu-item" key="Resume">
+            <router-link to="/enterprise/resume" >Resumes</router-link>
           </a-menu-item>
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Enterprises">
-            <router-link to="/student/enterprises" >Entreprises</router-link>
-          </a-menu-item>
-          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Projects">
-            <router-link to="/student/projects" >Projects</router-link>
+          <a-menu-item class="ensak-enterprise-layout-body-sider-menu-item" key="Projects">
+            <router-link to="/enterprise/projects" >Projects</router-link>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
       <a-layout style="padding: 15px 15px 0 15px; background-color:#fff">
-        <a-layout-content class='ensak-student-layout-body-main'><router-view ></router-view></a-layout-content>
+        <a-layout-content class='ensak-enterprise-layout-body-main'><router-view ></router-view></a-layout-content>
       </a-layout>
     </a-layout>
   </a-layout>
@@ -46,7 +43,7 @@
 <script>
 import { /*Button,*/ Layout, Menu, /*Breadcrumb,*/ Icon, Divider } from 'ant-design-vue'
 export default {
-  name: "StudentPage",
+  name: "enterprisePage",
   components: {
     "a-menu":Menu,
     "a-menu-item":Menu.Item,
@@ -66,9 +63,20 @@ export default {
     return {
       SelectedKey:"/event",
       collapsed: false,
+      id:"oncf-maroc",
+      project:"",
     };
   },
   beforeCreate() {
+    this.axios.get('/enterprises/'+this.id)
+        .then(response => {
+          this.project = response.data.content.data;
+          console.log()
+        })
+        .catch(e => {
+          // this.errors.push(e)
+          console.log(e);
+        })
   }
 }
 </script>
@@ -82,7 +90,7 @@ export default {
 ::-webkit-scrollbar-thumb {
     background: #013E7A;
 }
-.ensak-student-layout{
+.ensak-enterprise-layout{
   height: 100vh;
   &-header{
     display:inline-block;
@@ -148,7 +156,7 @@ export default {
   color:#013E7A;
   background: #013E7A;
 }
-.ensak-student-layout-nav{
+.ensak-enterprise-layout-nav{
   padding:0 0 0 10px !important;
   height:50px;
   display:flex;
@@ -158,7 +166,7 @@ export default {
   box-shadow: 0px 5px 24px rgba(92, 132, 171, 0.46);
   z-index: 1000;
 }
-.ensak-student-layout-header-menu{
+.ensak-enterprise-layout-header-menu{
   display:flex;
   &-item{
     margin:0;
@@ -173,7 +181,7 @@ export default {
     }
   }
 }
-.ensak-student-layout-logout{
+.ensak-enterprise-layout-logout{
   padding: 0px 20px 0px 20px;
   height:30px !important;
   margin:auto auto;
