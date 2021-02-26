@@ -8,14 +8,16 @@
       <LandingFindUs :location="location"/>
       <LandingFooter/>
     </div>
-    <div class='ensak-landing-page-container-login' :style="{display : login}" >
+    <div class='ensak-landing-page-container-login' :style="{display : login}" @click='this.login="none"' >
       <div class="ensak-landing-page-container-login-container">
         <div class="ensak-landing-page-container-login-container-student">
           <h1>Our Students</h1>
-          <div class="ensak-landing-page-container-login-container-student-button">
-            <img class="ensak-landing-page-container-login-container-student-button-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-            <p class="ensak-landing-page-container-login-container-student-button-text"><b>Sign in with Google</b></p>
-          </div>
+          <a href="https://d7751cf9f698.ngrok.io/api/v1/oauth2/google/login">
+            <div class="ensak-landing-page-container-login-container-student-button">
+              <img class="ensak-landing-page-container-login-container-student-button-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+              <p class="ensak-landing-page-container-login-container-student-button-text"><b>Sign in with Google</b></p>
+            </div>
+          </a>
         </div>
         <a-divider type="vertical" class="divider-landing"/>
         <div class="ensak-landing-page-container-login-container-student">
@@ -29,7 +31,7 @@
             <a-form-item>
               <a-input class='inputs'
                 v-decorator="[
-                  'userName',
+                  'username',
                   { rules: [{ required: true, message: 'Please input your email!' }] },
                 ]"
                 placeholder="Username"
@@ -125,6 +127,7 @@ export default {
           // this.errors.push(e)
           console.log(e);
         })
+      
   },
   computed:
   {
@@ -138,6 +141,9 @@ export default {
       this.view = false;
       this.bg="blur";
       console.log("wahya"+a)
+    },
+    handleSubmit(){
+      this.axios.post("/auth/enterprise/authenticate")
     }
   }
 }
