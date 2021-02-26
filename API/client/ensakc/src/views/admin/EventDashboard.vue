@@ -35,7 +35,7 @@
             <button class="button-edit" @click="showDrawer"> <a-icon class="ensak-event-main-header-back-icon" type="edit" /> &nbsp;&nbsp; Edit</button>
         </div>
     </div>
-    <a-button class="generator" v-if="this.event == {}" type="primary" @click="generateEvent">
+    <a-button  v-if="this.event == {}" class="btn" type="primary" @click="generateEvent">
         Add a new Event <a-icon type="plus" />
     </a-button>
     <a-drawer
@@ -102,7 +102,7 @@
                     v-decorator="['Event About', { rules: [{ required: true, message: 'Please input the event about!' }] }]"
                 />
             </a-form-item>
-            <a-button type="primary" @click="onClose">
+            <a-button class="btn" type="primary" @click="onClose">
                 Submit
             </a-button>
         </a-form>
@@ -188,6 +188,80 @@ export default {
     },
     onChange(date, dateString) {
       console.log(date, dateString);
+    },
+    generateEvent(){
+        this.event={
+        "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+        "name": "Event name",
+        "startDate": "2021-04-09T18:00:00Z",
+        "endDate": "2021-04-08T08:00:00Z",
+        "location": {
+            "id": 105,
+            "latitude": 33.541287,
+            "longitude": -7.5485412,
+            "city": "Rabat",
+            "country": "Morocco",
+            "state": "Casablanca-Settat",
+            "street": "Av Mohammed VI",
+            "streetNumber": 15,
+            "zipCode": "12000",
+            "formattedLocation": "Kenitra , Morocco"
+        },
+        "eventStatus": "eventScheduled",
+        "sponsors": [
+            {
+            "name": "ONCF",
+            "sponsorType": "gold",
+            "image": "http://example.com"
+            }
+        ],
+        "workFeatured": [
+            {
+            "category": "conferences",
+            "activity": [
+                {
+                "name": "Digital Well Being",
+                "time": "08:15"
+                }
+            ]
+            }
+        ],
+        "performers": [
+            {
+            "name": "Ahmad Reda Chami",
+            "about": "CEO of Economical Consultance",
+            "image": "https://api.hello-avatar.com/adorables/150/ziko@adorable.png"
+            },
+            {
+            "name": "Ahmad Reda Chami",
+            "about": "CEO of Economical Consultance",
+            "image": "https://api.hello-avatar.com/adorables/150/ali@adorable.png"
+            },
+            {
+            "name": "Ahmad Reda Chami",
+            "about": "CEO of Economical Consultance",
+            "image": "https://api.hello-avatar.com/adorables/150/sadiq@adorable.png"
+            },
+            {
+            "name": "Ahmad Reda Chami",
+            "about": "CEO of Economical Consultance",
+            "image": "https://api.hello-avatar.com/adorables/150/hamousa@adorable.png"
+            },
+            {
+            "name": "Ahmad Reda Chami",
+            "about": "CEO of Economical Consultance",
+            "image": "https://api.hello-avatar.com/adorables/150/ilyas@adorable.png"
+            }
+        ],
+        "theme": "AR/VR A New Tech Revolution",
+        "gallery": [
+            "http://example.com"
+        ],
+        "banner": "https://i.imgur.com/vZF3qUW.jpg",
+        "eventType": "Online",
+        "about": "<h6><strong>INTITULÉ DU SUJET</strong></h6>\\n<p>Développement du logiciel embarqué pour une station de recharge de scooter électrique.</p>\\n<h6>DESCRIPTION</h6>\\n<p>Le stage s’inscrit dans le cadre du projet eSCOOBOX qui consiste à développer une solution de recharge rapide de scooters électriques dédiée au marché marocain.</p>\\n<p>Le stagiaire contribuera à l’implémentation du protocole OCPP 2.0 sur une cible STM32 :<br />• Rédaction du plan de test<br />• Codage et implémentation<br />• Test et validation</p>\\n<h6>COMPÉTENCES REQUISES :</h6>\\n<p>• Langues : Français, Anglais<br />• Formations : Bac+5, formation ingénieur ou master universitaire<br />• Compétences particulières : STM32, C/C++, Git, bus CAN, UART et NFC<br />• Aptitudes relationnelles : Capacité à travailler en équipe, rigoureux et sens de<br />l’analyse</p>\\n<h6>DURÉE DU STAGE</h6>\\n<p>6 mois</p>\\n<p><strong>IMPORTANT : Vous trouverez plusieurs offres de stage PFE dans différents sujets sur le lien ci-dessous</strong></p>\\n<p>https://www.mascir.com/jobs/</p>"
+        }
+        this.visible=true
     }
   }
 }
@@ -335,5 +409,13 @@ export default {
     border-radius:10px 0px !important;
     padding:9px 20px;
     margin:10px 0 0 0;
+}
+.btn{
+    display:inline-block;
+    padding:10px 30px ;
+    color:white;
+    background:linear-gradient(to right,#56CCF2 , #2D9CDB);
+    border-radius:25px 0;
+    margin-top:20px auto !important;
 }
 </style>
