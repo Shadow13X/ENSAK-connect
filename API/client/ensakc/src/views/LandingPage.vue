@@ -17,7 +17,7 @@
             <p class="ensak-landing-page-container-login-container-student-button-text"><b>Sign in with Google</b></p>
           </div>
         </div>
-        <a-divider type="vertical" class="divider"/>
+        <a-divider type="vertical" class="divider-landing"/>
         <div class="ensak-landing-page-container-login-container-student">
           <h1>For Entreprises</h1>
           <a-form
@@ -185,7 +185,7 @@ export default {
     }
   }
 }
-.divider{
+.divider-landing{
   text-align:center;
   height:75%;
   min-height:75%;

@@ -17,7 +17,7 @@
     <div class="ensak-enterprises-main">
         <div style='width:100%' v-for='p in this.enterprises' :key='p' >
             <div style='width:100%' v-if="notFiltered(p)">
-                <router-link :to="'/entreprise/resume/'+p.id">
+                <router-link :to="'/enterprise/resume/'+p.id">
                     <div class='ensak-enterprises-main-enterprise'>
                         <img class='ensak-enterprises-main-enterprise-image' alt='enterprise logo' :src="p.image">
                         <div class='ensak-enterprises-main-enterprise-data'>

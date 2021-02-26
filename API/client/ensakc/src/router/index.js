@@ -97,6 +97,13 @@ const routes = [
       {
         // UserProfile will be rendered inside User's <router-view>
         // when /user/:id/profile is matched
+        path: '/enterprise/resume/:id',
+        name: 'Resume',
+        component: () => import('@/views/sponsor/ResumePage')
+      },
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
         path: '/enterprise/projects/:id',
         name: 'Projects',
         component: () => import('@/views/student/ProjectPage')
