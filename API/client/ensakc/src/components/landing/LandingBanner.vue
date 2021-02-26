@@ -46,7 +46,6 @@ export default {
   }
 
   .ensak-landing-banner-container-theme {
-    font-family: sans-serif ;
     color: white;
     font-size: 30px;
   }

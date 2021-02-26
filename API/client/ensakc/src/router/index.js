@@ -123,34 +123,6 @@ const routes = [
       {
         // UserProfile will be rendered inside User's <router-view>
         // when /user/:id/profile is matched
-        path: '/admin/enterprises',
-        name: 'Enterprises',
-        component: () => import('@/views/student/EnterprisesPage')
-      },
-      {
-        // UserProfile will be rendered inside User's <router-view>
-        // when /user/:id/profile is matched
-        path: '/admin/enterprises/:id',
-        name: 'Enterprises',
-        component: () => import('@/views/student/EnterprisePage')
-      },
-      {
-        // UserProfile will be rendered inside User's <router-view>
-        // when /user/:id/profile is matched
-        path: '/admin/projects',
-        name: 'Projects',
-        component: () => import('@/views/student/ProjectsPage')
-      },
-      {
-        // UserProfile will be rendered inside User's <router-view>
-        // when /user/:id/profile is matched
-        path: '/admin/projects/:id',
-        name: 'Projects',
-        component: () => import('@/views/student/ProjectPage')
-      },
-      {
-        // UserProfile will be rendered inside User's <router-view>
-        // when /user/:id/profile is matched
         path: '/admin/eventDashboard',
         name: 'EventDashboard',
         component: () => import('@/views/admin/EventDashboard')
@@ -168,18 +140,6 @@ const routes = [
         path: '/admin/projectsDashboard',
         name: 'ProjectsDashboard',
         component: () => import('@/views/admin/ProjectsDashboard')
-      },
-      {
-        // UserProfile will be rendered inside User's <router-view>
-        // when /user/:id/profile is matched
-        path: '/admin/resume',
-        name: 'Resume',
-        component: () => import('@/views/student/ResumePage'),
-      },
-      {
-        path: '/admin/event',
-        name: 'Event',
-        component: () => import('@/views/student/EventPage')
       }
     ]
   }

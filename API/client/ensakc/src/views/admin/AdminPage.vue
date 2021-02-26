@@ -22,37 +22,17 @@
           </div>
         </div>
         <a-divider class="divider"/>
-        Student <a-switch default-checked @change="onChange" /> Admin
-        <a-divider class="divider"/>
-        <div v-if="!this.isAdmin" >  
-          <a-menu  class="ensak-student-layout-body-sider-menu" mode="inline"  :selectedKeys="[this.$route.name]" :style="{ borderRight: 0 }">
-            <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Event">
-              <router-link to="/admin/event" >Event</router-link>
-            </a-menu-item>
-            <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Resume">
-              <router-link to="/admin/resume" >Resume</router-link>
-            </a-menu-item>
-            <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Enterprises">
-              <router-link to="/admin/enterprises" >Enterprises</router-link>
-            </a-menu-item>
-            <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="Projects">
-              <router-link to="/admin/projects" >Projects</router-link>
-            </a-menu-item>
-          </a-menu>
-        </div>
-        <div v-if="this.isAdmin">
-          <a-menu  class="ensak-student-layout-body-sider-menu" mode="inline"  :selectedKeys="[this.$route.name]" :style="{ borderRight: 0 }">
-            <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="EventDashboard">
-              <router-link to="/admin/" >Event</router-link>
-            </a-menu-item>
-            <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="EnterprisesDashboard">
-              <router-link to="/admin/enterprisesDashboard" >Enterprises</router-link>
-            </a-menu-item>
-            <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="ProjectsDashboard">
-              <router-link to="/admin/projectsDashboard" >Projects</router-link>
-            </a-menu-item>
-          </a-menu>
-        </div>
+        <a-menu  class="ensak-student-layout-body-sider-menu" mode="inline"  :selectedKeys="[this.$route.name]" :style="{ borderRight: 0 }">
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="EventDashboard">
+            <router-link to="/admin/" >Event</router-link>
+          </a-menu-item>
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="EnterprisesDashboard">
+            <router-link to="/admin/enterprisesDashboard" >Enterprises</router-link>
+          </a-menu-item>
+          <a-menu-item class="ensak-student-layout-body-sider-menu-item" key="ProjectsDashboard">
+            <router-link to="/admin/projectsDashboard" >Projects</router-link>
+          </a-menu-item>
+        </a-menu>
       </a-layout-sider>
       <a-layout style="padding: 15px 15px 0 15px; background-color:#fff">
         <a-layout-content class='ensak-student-layout-body-main'><router-view ></router-view></a-layout-content>
@@ -61,7 +41,7 @@
   </a-layout>
 </template>
 <script>
-import { Layout, Menu, Switch, Icon, Divider } from 'ant-design-vue'
+import { Layout, Menu, Icon, Divider } from 'ant-design-vue'
 export default {
   name: "StudentPage",
   components: {
@@ -78,25 +58,23 @@ export default {
     "a-layout-sider":Layout.Sider,
     "a-layout-content":Layout.Content,
     "a-divider":Divider,
-    "a-switch":Switch,
   },
   data() {
     return {
       SelectedKey:"EventDashboard",
       collapsed: false,
-      isAdmin:true,
     };
   },
   methods:{
-    onChange(checked) {
-      this.isAdmin = checked
-      console.log(`a-switch to ${checked}`);
-    }
+    
   }
 }
 </script>
 
 <style lang="scss">
+*{
+  font-family: 'Barlow', sans-serif;
+}
 ::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
